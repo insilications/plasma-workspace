@@ -4,7 +4,7 @@
 #
 Name     : plasma-workspace
 Version  : 5.13.4
-Release  : 4
+Release  : 5
 URL      : https://github.com/KDE/plasma-workspace/archive/v5.13.4.tar.gz
 Source0  : https://github.com/KDE/plasma-workspace/archive/v5.13.4.tar.gz
 Summary  : No detailed summary available
@@ -160,7 +160,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1535400674
+export SOURCE_DATE_EPOCH=1535449620
 mkdir clr-build
 pushd clr-build
 %cmake .. -DXDG_CONFIG_DIRS=/usr/share/xdg
@@ -168,7 +168,7 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1535400674
+export SOURCE_DATE_EPOCH=1535449620
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/doc/plasma-workspace
 cp COPYING %{buildroot}/usr/share/doc/plasma-workspace/COPYING
@@ -180,9 +180,6 @@ cp ksmserver/LICENSE %{buildroot}/usr/share/doc/plasma-workspace/ksmserver_LICEN
 pushd clr-build
 %make_install
 popd
-## install_append content
-mv %{buildroot}/etc/xdg %{buildroot}/usr/share
-## install_append end
 
 %files
 %defattr(-,root,root,-)
