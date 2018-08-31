@@ -43,3 +43,6 @@ xcb-util-xrm-dev
 libXrender-dev
 libXtst-dev
 NetworkManager-dev
+breeze
+breeze-icons
+plasma-workspace-wallpapers

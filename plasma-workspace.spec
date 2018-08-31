@@ -4,7 +4,7 @@
 #
 Name     : plasma-workspace
 Version  : 5.13.4
-Release  : 5
+Release  : 6
 URL      : https://github.com/KDE/plasma-workspace/archive/v5.13.4.tar.gz
 Source0  : https://github.com/KDE/plasma-workspace/archive/v5.13.4.tar.gz
 Summary  : No detailed summary available
@@ -17,8 +17,11 @@ Requires: plasma-workspace-license
 BuildRequires : NetworkManager-dev
 BuildRequires : attica-dev
 BuildRequires : baloo-dev
+BuildRequires : breeze
+BuildRequires : breeze-icons
 BuildRequires : buildreq-cmake
 BuildRequires : buildreq-kde
+BuildRequires : gmp-dev
 BuildRequires : kactivities-dev
 BuildRequires : karchive-dev
 BuildRequires : kcodecs-dev
@@ -65,12 +68,15 @@ BuildRequires : libX11-dev libICE-dev libSM-dev libXau-dev libXcomposite-dev lib
 BuildRequires : libXrender-dev
 BuildRequires : libXtst-dev
 BuildRequires : libksysguard-dev
+BuildRequires : libqalculate-dev
 BuildRequires : libxcb-dev
+BuildRequires : mpfr-dev
 BuildRequires : networkmanager-qt-dev
 BuildRequires : phonon-dev
 BuildRequires : pkg-config
 BuildRequires : pkgconfig(iso-codes)
 BuildRequires : plasma-framework-dev
+BuildRequires : plasma-workspace-wallpapers
 BuildRequires : prison-dev
 BuildRequires : qtbase-dev qtbase-extras mesa-dev
 BuildRequires : qttools-dev
@@ -160,7 +166,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1535449620
+export SOURCE_DATE_EPOCH=1535692769
 mkdir clr-build
 pushd clr-build
 %cmake .. -DXDG_CONFIG_DIRS=/usr/share/xdg
@@ -168,7 +174,7 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1535449620
+export SOURCE_DATE_EPOCH=1535692769
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/doc/plasma-workspace
 cp COPYING %{buildroot}/usr/share/doc/plasma-workspace/COPYING

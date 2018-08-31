@@ -1,5 +1,6 @@
 5.13.4
 baloo-dev
+gmp-dev
 kactivities-dev
 karchive-dev
 kcrash-dev
@@ -18,6 +19,8 @@ ktextwidgets-dev
 kwallet-dev
 kwayland-dev
 libksysguard-dev
+libqalculate-dev
+mpfr-dev
 networkmanager-qt-dev
 phonon-dev
 pkgconfig(iso-codes)
