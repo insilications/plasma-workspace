@@ -4,7 +4,7 @@
 #
 Name     : plasma-workspace
 Version  : 5.13.4
-Release  : 7
+Release  : 8
 URL      : https://github.com/KDE/plasma-workspace/archive/v5.13.4.tar.gz
 Source0  : https://github.com/KDE/plasma-workspace/archive/v5.13.4.tar.gz
 Summary  : No detailed summary available
@@ -168,7 +168,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1535812987
+export SOURCE_DATE_EPOCH=1535813651
 mkdir clr-build
 pushd clr-build
 %cmake .. -DXDG_CONFIG_DIRS=/usr/share/xdg
@@ -176,7 +176,7 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1535812987
+export SOURCE_DATE_EPOCH=1535813651
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/doc/plasma-workspace
 cp COPYING %{buildroot}/usr/share/doc/plasma-workspace/COPYING
@@ -189,8 +189,8 @@ pushd clr-build
 %make_install
 popd
 ## install_append content
-mkdir -p %{builroot}/usr/share/pam.d
-cat >> %{builroot}/usr/share/pam.d/kde << "EOF" &&
+mkdir -p %{buildroot}/usr/share/pam.d
+cat >> %{buildroot}/usr/share/pam.d/kde << "EOF" &&
 auth     requisite      pam_nologin.so
 auth     required       pam_env.so
 auth     required       pam_succeed_if.so uid >= 1000 quiet
@@ -199,7 +199,7 @@ account  include        system-account
 password include        system-password
 session  include        system-session
 EOF
-cat > %{builroot}/usr/share/pam.d/kde-np << "EOF" &&
+cat > %{buildroot}/usr/share/pam.d/kde-np << "EOF" &&
 auth     requisite      pam_nologin.so
 auth     required       pam_env.so
 auth     required       pam_succeed_if.so uid >= 1000 quiet
@@ -208,7 +208,7 @@ account  include        system-account
 password include        system-password
 session  include        system-session
 EOF
-cat > %{builroot}/usr/share/pam.d/kscreensaver << "EOF"
+cat > %{buildroot}/usr/share/pam.d/kscreensaver << "EOF"
 auth    include system-auth
 account include system-account
 EOF
@@ -446,6 +446,9 @@ EOF
 /usr/share/metainfo/org.kde.plasma.systemmonitor.net.appdata.xml
 /usr/share/metainfo/org.kde.plasma.systemtray.appdata.xml
 /usr/share/metainfo/org.kde.slideshow.appdata.xml
+/usr/share/pam.d/kde
+/usr/share/pam.d/kde-np
+/usr/share/pam.d/kscreensaver
 /usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/components/ActionButton.qml
 /usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/components/Battery.qml
 /usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/components/Clock.qml

@@ -1,5 +1,5 @@
-mkdir -p %{builroot}/usr/share/pam.d
-cat >> %{builroot}/usr/share/pam.d/kde << "EOF" &&
+mkdir -p %{buildroot}/usr/share/pam.d
+cat >> %{buildroot}/usr/share/pam.d/kde << "EOF" &&
 # Begin /usr/share/pam.d/kde
 
 auth     requisite      pam_nologin.so
@@ -14,7 +14,7 @@ session  include        system-session
 
 # End /usr/share/pam.d/kde
 EOF
-cat > %{builroot}/usr/share/pam.d/kde-np << "EOF" &&
+cat > %{buildroot}/usr/share/pam.d/kde-np << "EOF" &&
 # Begin /usr/share/pam.d/kde-np
 
 auth     requisite      pam_nologin.so
@@ -29,7 +29,7 @@ session  include        system-session
 
 # End /usr/share/pam.d/kde-np
 EOF
-cat > %{builroot}/usr/share/pam.d/kscreensaver << "EOF"
+cat > %{buildroot}/usr/share/pam.d/kscreensaver << "EOF"
 # Begin /usr/share/pam.d/kscreensaver
 
 auth    include system-auth
