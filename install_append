@@ -8,9 +8,9 @@ auth     required       pam_env.so
 auth     required       pam_succeed_if.so uid >= 1000 quiet
 auth     include        system-auth
 
-account  include        system-account
-password include        system-password
-session  include        system-session
+account  include        common-account
+password include        common-password
+session  include        common-session
 
 # End /usr/share/pam.d/kde
 EOF
@@ -23,9 +23,9 @@ auth     required       pam_env.so
 auth     required       pam_succeed_if.so uid >= 1000 quiet
 auth     required       pam_permit.so
 
-account  include        system-account
-password include        system-password
-session  include        system-session
+account  include        common-account
+password include        common-password
+session  include        common-session
 
 # End /usr/share/pam.d/kde-np
 EOF
@@ -33,7 +33,7 @@ cat > %{buildroot}/usr/share/pam.d/kscreensaver << "EOF"
 # Begin /usr/share/pam.d/kscreensaver
 
 auth    include system-auth
-account include system-account
+account include common-account
 
 # End /usr/share/pam.d/kscreensaver
 EOF
