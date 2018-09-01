@@ -4,7 +4,7 @@
 #
 Name     : plasma-workspace
 Version  : 5.13.4
-Release  : 6
+Release  : 7
 URL      : https://github.com/KDE/plasma-workspace/archive/v5.13.4.tar.gz
 Source0  : https://github.com/KDE/plasma-workspace/archive/v5.13.4.tar.gz
 Summary  : No detailed summary available
@@ -91,6 +91,7 @@ BuildRequires : xcb-util-renderutil-dev
 BuildRequires : xcb-util-wm-dev
 BuildRequires : xcb-util-xrm-dev
 BuildRequires : zlib-dev
+Patch1: share.patch
 
 %description
 Plasma Weather Ion Dataengine
@@ -160,13 +161,14 @@ license components for the plasma-workspace package.
 
 %prep
 %setup -q -n plasma-workspace-5.13.4
+%patch1 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1535692769
+export SOURCE_DATE_EPOCH=1535812987
 mkdir clr-build
 pushd clr-build
 %cmake .. -DXDG_CONFIG_DIRS=/usr/share/xdg
@@ -174,7 +176,7 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1535692769
+export SOURCE_DATE_EPOCH=1535812987
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/doc/plasma-workspace
 cp COPYING %{buildroot}/usr/share/doc/plasma-workspace/COPYING
@@ -186,6 +188,31 @@ cp ksmserver/LICENSE %{buildroot}/usr/share/doc/plasma-workspace/ksmserver_LICEN
 pushd clr-build
 %make_install
 popd
+## install_append content
+mkdir -p %{builroot}/usr/share/pam.d
+cat >> %{builroot}/usr/share/pam.d/kde << "EOF" &&
+auth     requisite      pam_nologin.so
+auth     required       pam_env.so
+auth     required       pam_succeed_if.so uid >= 1000 quiet
+auth     include        system-auth
+account  include        system-account
+password include        system-password
+session  include        system-session
+EOF
+cat > %{builroot}/usr/share/pam.d/kde-np << "EOF" &&
+auth     requisite      pam_nologin.so
+auth     required       pam_env.so
+auth     required       pam_succeed_if.so uid >= 1000 quiet
+auth     required       pam_permit.so
+account  include        system-account
+password include        system-password
+session  include        system-session
+EOF
+cat > %{builroot}/usr/share/pam.d/kscreensaver << "EOF"
+auth    include system-auth
+account include system-account
+EOF
+## install_append end
 
 %files
 %defattr(-,root,root,-)

@@ -1,0 +1,11 @@
+--- plasma-workspace-5.13.4/startkde/startkde.cmake~	2018-07-31 12:16:44.000000000 +0000
++++ plasma-workspace-5.13.4/startkde/startkde.cmake	2018-09-01 03:53:35.392965937 +0000
+@@ -38,7 +38,7 @@
+ else
+   configDir=${HOME}/.config; #this is the default, http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
+ fi
+-sysConfigDirs=${XDG_CONFIG_DIRS:-/etc/xdg}
++sysConfigDirs=${XDG_CONFIG_DIRS:-/etc/xdg:-/usr/share/xdg}
+ 
+ # We need to create config folder so we can write startupconfigkeys
+ mkdir -p $configDir
