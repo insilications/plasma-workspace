@@ -4,7 +4,7 @@
 #
 Name     : plasma-workspace
 Version  : 5.13.5
-Release  : 10
+Release  : 11
 URL      : https://github.com/KDE/plasma-workspace/archive/v5.13.5.tar.gz
 Source0  : https://github.com/KDE/plasma-workspace/archive/v5.13.5.tar.gz
 Summary  : No detailed summary available
@@ -23,9 +23,12 @@ BuildRequires : buildreq-cmake
 BuildRequires : buildreq-kde
 BuildRequires : gmp-dev
 BuildRequires : kactivities-dev
+BuildRequires : karchive-dev
 BuildRequires : kcodecs-dev
 BuildRequires : kcompletion-dev
+BuildRequires : kcrash-dev
 BuildRequires : kdbusaddons-dev
+BuildRequires : kdeclarative-dev
 BuildRequires : kdelibs4support-dev
 BuildRequires : kdesignerplugin-dev
 BuildRequires : kdesu-dev
@@ -42,6 +45,7 @@ BuildRequires : kitemviews-dev
 BuildRequires : kjobwidgets-dev
 BuildRequires : kjs-dev
 BuildRequires : kjsembed-dev
+BuildRequires : knewstuff-dev
 BuildRequires : knotifications-dev
 BuildRequires : knotifyconfig-dev
 BuildRequires : kpackage-dev
@@ -50,7 +54,9 @@ BuildRequires : kpty-dev
 BuildRequires : krunner-dev
 BuildRequires : kscreenlocker-dev
 BuildRequires : ktexteditor-dev
+BuildRequires : ktextwidgets-dev
 BuildRequires : kunitconversion-dev
+BuildRequires : kwallet-dev
 BuildRequires : kwayland-dev
 BuildRequires : kwidgetsaddons-dev
 BuildRequires : kwin-dev
@@ -65,6 +71,7 @@ BuildRequires : libksysguard-dev
 BuildRequires : libqalculate-dev
 BuildRequires : libxcb-dev
 BuildRequires : mpfr-dev
+BuildRequires : networkmanager-qt-dev
 BuildRequires : phonon-dev
 BuildRequires : pkg-config
 BuildRequires : pkgconfig(iso-codes)
@@ -161,7 +168,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1536121853
+export SOURCE_DATE_EPOCH=1536122817
 mkdir clr-build
 pushd clr-build
 %cmake .. -DXDG_CONFIG_DIRS=/usr/share/xdg
@@ -169,7 +176,7 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1536121853
+export SOURCE_DATE_EPOCH=1536122817
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/doc/plasma-workspace
 cp COPYING %{buildroot}/usr/share/doc/plasma-workspace/COPYING
