@@ -4,7 +4,7 @@
 #
 Name     : plasma-workspace
 Version  : 5.14.3
-Release  : 19
+Release  : 20
 URL      : https://github.com/KDE/plasma-workspace/archive/v5.14.3.tar.gz
 Source0  : https://github.com/KDE/plasma-workspace/archive/v5.14.3.tar.gz
 Summary  : No detailed summary available
@@ -24,9 +24,12 @@ BuildRequires : buildreq-kde
 BuildRequires : extra-cmake-modules pkgconfig(xcb) xcb-util-cursor-dev xcb-util-image-dev xcb-util-keysyms-dev xcb-util-renderutil-dev xcb-util-wm-dev xcb-util-dev
 BuildRequires : gmp-dev
 BuildRequires : kactivities-dev
+BuildRequires : karchive-dev
 BuildRequires : kcodecs-dev
 BuildRequires : kcompletion-dev
+BuildRequires : kcrash-dev
 BuildRequires : kdbusaddons-dev
+BuildRequires : kdeclarative-dev
 BuildRequires : kdelibs4support-dev
 BuildRequires : kdesignerplugin-dev
 BuildRequires : kdesu-dev
@@ -43,6 +46,7 @@ BuildRequires : kitemviews-dev
 BuildRequires : kjobwidgets-dev
 BuildRequires : kjs-dev
 BuildRequires : kjsembed-dev
+BuildRequires : knewstuff-dev
 BuildRequires : knotifications-dev
 BuildRequires : knotifyconfig-dev
 BuildRequires : kpackage-dev
@@ -51,7 +55,9 @@ BuildRequires : kpty-dev
 BuildRequires : krunner-dev
 BuildRequires : kscreenlocker-dev
 BuildRequires : ktexteditor-dev
+BuildRequires : ktextwidgets-dev
 BuildRequires : kunitconversion-dev
+BuildRequires : kwallet-dev
 BuildRequires : kwayland-dev
 BuildRequires : kwidgetsaddons-dev
 BuildRequires : kwin-dev
@@ -66,6 +72,7 @@ BuildRequires : libksysguard-dev
 BuildRequires : libqalculate-dev
 BuildRequires : libxcb-dev
 BuildRequires : mpfr-dev
+BuildRequires : networkmanager-qt-dev
 BuildRequires : phonon-dev
 BuildRequires : pkg-config
 BuildRequires : pkgconfig(iso-codes)
@@ -74,6 +81,7 @@ BuildRequires : plasma-workspace-wallpapers
 BuildRequires : prison-dev
 BuildRequires : qtbase-dev mesa-dev
 BuildRequires : qttools-dev
+BuildRequires : qtx11extras-dev
 BuildRequires : solid-dev
 BuildRequires : sonnet-dev
 BuildRequires : xcb-util-cursor-dev
@@ -95,14 +103,6 @@ as exposed by the "plasma/weather/ion.h" header.
 While this API has been the same for some time, there is no guarantee
 that it will be stable for all future versions of the weather dataengine
 as part of Plasma Workspace.
-
-%package abi
-Summary: abi components for the plasma-workspace package.
-Group: Default
-
-%description abi
-abi components for the plasma-workspace package.
-
 
 %package bin
 Summary: bin components for the plasma-workspace package.
@@ -169,7 +169,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1541536599
+export SOURCE_DATE_EPOCH=1542751898
 mkdir -p clr-build
 pushd clr-build
 %cmake .. -DXDG_CONFIG_DIRS=/usr/share/xdg
@@ -177,7 +177,7 @@ make  %{?_smp_mflags} VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1541536599
+export SOURCE_DATE_EPOCH=1542751898
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/plasma-workspace
 cp COPYING %{buildroot}/usr/share/package-licenses/plasma-workspace/COPYING
@@ -222,19 +222,6 @@ EOF
 /usr/lib64/libexec/ksmserver-logout-greeter
 /usr/lib64/libexec/ksyncdbusenv
 /usr/lib64/libexec/startplasma
-
-%files abi
-%defattr(-,root,root,-)
-/usr/share/abi/libcolorcorrect.so.5.14.3.abi
-/usr/share/abi/libcolorcorrect.so.5.abi
-/usr/share/abi/libkworkspace5.so.5.14.3.abi
-/usr/share/abi/libkworkspace5.so.5.abi
-/usr/share/abi/libplasma-geolocation-interface.so.5.14.3.abi
-/usr/share/abi/libplasma-geolocation-interface.so.5.abi
-/usr/share/abi/libtaskmanager.so.5.14.3.abi
-/usr/share/abi/libtaskmanager.so.6.abi
-/usr/share/abi/libweather_ion.so.7.0.0.abi
-/usr/share/abi/libweather_ion.so.7.abi
 
 %files bin
 %defattr(-,root,root,-)
