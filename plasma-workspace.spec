@@ -4,7 +4,7 @@
 #
 Name     : plasma-workspace
 Version  : 5.14.5
-Release  : 23
+Release  : 24
 URL      : https://github.com/KDE/plasma-workspace/archive/v5.14.5.tar.gz
 Source0  : https://github.com/KDE/plasma-workspace/archive/v5.14.5.tar.gz
 Summary  : KDE Plasma Workspace
