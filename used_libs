@@ -60,14 +60,10 @@ libQt5Xml.so.5
 libX11.so.6
 libXtst.so.6
 libc.so.6
-libgcc_s.so.1
 libksgrd.so.7
 libm.so.6
 libphonon4qt5.so.4
 libprocesscore.so.7
 libprocessui.so.7
-libqalculate.so.19
 libstdc++.so.6
-libxcb-image.so.0
-libxcb-util.so.1
 libz.so.1
