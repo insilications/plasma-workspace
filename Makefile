@@ -1,5 +1,5 @@
 PKG_NAME := plasma-workspace
-URL = https://github.com/KDE/plasma-workspace/archive/v5.16.4/plasma-workspace-5.16.4.tar.gz
+URL = https://download.kde.org/stable/plasma/5.16.5/plasma-workspace-5.16.5.tar.xz
 ARCHIVES = 
 
 include ../common/Makefile.common
