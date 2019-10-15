@@ -5,11 +5,11 @@
 # Source0 file verified with key 0xEC94D18F7F05997E (jr@jriddell.org)
 #
 Name     : plasma-workspace
-Version  : 5.16.5
-Release  : 37
-URL      : https://download.kde.org/stable/plasma/5.16.5/plasma-workspace-5.16.5.tar.xz
-Source0  : https://download.kde.org/stable/plasma/5.16.5/plasma-workspace-5.16.5.tar.xz
-Source1 : https://download.kde.org/stable/plasma/5.16.5/plasma-workspace-5.16.5.tar.xz.sig
+Version  : 5.17.0
+Release  : 38
+URL      : https://download.kde.org/stable/plasma/5.17.0/plasma-workspace-5.17.0.tar.xz
+Source0  : https://download.kde.org/stable/plasma/5.17.0/plasma-workspace-5.17.0.tar.xz
+Source1 : https://download.kde.org/stable/plasma/5.17.0/plasma-workspace-5.17.0.tar.xz.sig
 Summary  : KDE Plasma Workspace
 Group    : Development/Tools
 License  : BSD-3-Clause GFDL-1.2 GPL-2.0 LGPL-2.1 MIT
@@ -30,6 +30,7 @@ BuildRequires : buildreq-kde
 BuildRequires : extra-cmake-modules pkgconfig(xcb) xcb-util-cursor-dev xcb-util-image-dev xcb-util-keysyms-dev xcb-util-renderutil-dev xcb-util-wm-dev xcb-util-dev
 BuildRequires : gmp-dev
 BuildRequires : kactivities-dev
+BuildRequires : kactivities-stats-dev
 BuildRequires : kcodecs-dev
 BuildRequires : kcompletion-dev
 BuildRequires : kdbusaddons-dev
@@ -55,6 +56,7 @@ BuildRequires : knotifications-dev
 BuildRequires : knotifyconfig-dev
 BuildRequires : kpackage-dev
 BuildRequires : kparts-dev
+BuildRequires : kpeople-dev
 BuildRequires : kpty-dev
 BuildRequires : krunner-dev
 BuildRequires : kscreenlocker-dev
@@ -70,6 +72,7 @@ BuildRequires : libSM-dev
 BuildRequires : libX11-dev libICE-dev libSM-dev libXau-dev libXcomposite-dev libXcursor-dev libXdamage-dev libXdmcp-dev libXext-dev libXfixes-dev libXft-dev libXi-dev libXinerama-dev libXi-dev libXmu-dev libXpm-dev libXrandr-dev libXrender-dev libXres-dev libXScrnSaver-dev libXt-dev libXtst-dev libXv-dev libXxf86misc-dev libXxf86vm-dev
 BuildRequires : libXrender-dev
 BuildRequires : libXtst-dev
+BuildRequires : libkscreen-dev
 BuildRequires : libksysguard-dev
 BuildRequires : libqalculate-dev
 BuildRequires : libxcb-dev
@@ -92,7 +95,6 @@ BuildRequires : xcb-util-renderutil-dev
 BuildRequires : xcb-util-wm-dev
 BuildRequires : xcb-util-xrm-dev
 BuildRequires : zlib-dev
-Patch1: share.patch
 
 %description
 Plasma Weather Ion Dataengine
@@ -171,15 +173,14 @@ locales components for the plasma-workspace package.
 
 
 %prep
-%setup -q -n plasma-workspace-5.16.5
-%patch1 -p1
+%setup -q -n plasma-workspace-5.17.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1567884723
+export SOURCE_DATE_EPOCH=1571165889
 mkdir -p clr-build
 pushd clr-build
 # -Werror is for werrorists
@@ -192,19 +193,19 @@ export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
 export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
 export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 %cmake .. -DXDG_CONFIG_DIRS=/usr/share/xdg
-make  %{?_smp_mflags} VERBOSE=1
+make  %{?_smp_mflags}  VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1567884723
+export SOURCE_DATE_EPOCH=1571165889
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/plasma-workspace
-cp COPYING %{buildroot}/usr/share/package-licenses/plasma-workspace/COPYING
-cp COPYING.DOC %{buildroot}/usr/share/package-licenses/plasma-workspace/COPYING.DOC
-cp COPYING.LIB %{buildroot}/usr/share/package-licenses/plasma-workspace/COPYING.LIB
-cp freespacenotifier/COPYING %{buildroot}/usr/share/package-licenses/plasma-workspace/freespacenotifier_COPYING
-cp ksmserver/Copyright.txt %{buildroot}/usr/share/package-licenses/plasma-workspace/ksmserver_Copyright.txt
-cp ksmserver/LICENSE %{buildroot}/usr/share/package-licenses/plasma-workspace/ksmserver_LICENSE
+cp %{_builddir}/plasma-workspace-5.17.0/COPYING %{buildroot}/usr/share/package-licenses/plasma-workspace/7c203dee3a03037da436df03c4b25b659c073976
+cp %{_builddir}/plasma-workspace-5.17.0/COPYING.DOC %{buildroot}/usr/share/package-licenses/plasma-workspace/bd75d59f9d7d9731bfabdc48ecd19e704d218e38
+cp %{_builddir}/plasma-workspace-5.17.0/COPYING.LIB %{buildroot}/usr/share/package-licenses/plasma-workspace/9a1929f4700d2407c70b507b3b2aaf6226a9543c
+cp %{_builddir}/plasma-workspace-5.17.0/freespacenotifier/COPYING %{buildroot}/usr/share/package-licenses/plasma-workspace/7c203dee3a03037da436df03c4b25b659c073976
+cp %{_builddir}/plasma-workspace-5.17.0/ksmserver/Copyright.txt %{buildroot}/usr/share/package-licenses/plasma-workspace/d53ea4b152ed3d9d8a96650bd70f5fbb9e9a3ef9
+cp %{_builddir}/plasma-workspace-5.17.0/ksmserver/LICENSE %{buildroot}/usr/share/package-licenses/plasma-workspace/67218f86a21c5afe177def300337c7ff8ccf40f9
 pushd clr-build
 %make_install
 popd
@@ -216,6 +217,7 @@ popd
 %find_lang kcminit
 %find_lang kholidays_calendar_plugin
 %find_lang krunner
+%find_lang libkicker
 %find_lang libkworkspace
 %find_lang phonon_kde_plugin
 %find_lang plasma_applet_org.kde.plasma.analogclock
@@ -245,7 +247,6 @@ popd
 %find_lang plasma_engine_mpris2
 %find_lang plasma_engine_notifications
 %find_lang plasma_engine_powermanagement
-%find_lang plasma_engine_share
 %find_lang plasma_engine_soliddevice
 %find_lang plasma_engine_time
 %find_lang plasma_engine_weather
@@ -263,7 +264,6 @@ popd
 %find_lang plasma_runner_services
 %find_lang plasma_runner_sessions
 %find_lang plasma_runner_shell
-%find_lang plasma_runner_solid
 %find_lang plasma_runner_webshortcuts
 %find_lang plasma_runner_windowedwidgets
 %find_lang plasma_runner_windows
@@ -276,6 +276,7 @@ popd
 %find_lang kio_desktop
 %find_lang libnotificationmanager
 %find_lang plasma_engine_dict
+%find_lang plasma_engine_hotplug
 %find_lang plasma_runner_appstream
 ## install_append content
 mkdir -p %{buildroot}/usr/share/pam.d
@@ -305,29 +306,29 @@ EOF
 
 %files
 %defattr(-,root,root,-)
+/usr/lib64/kconf_update_bin/krunnerglobalshortcuts
 /usr/lib64/kconf_update_bin/krunnerplugins
 /usr/lib64/libexec/baloorunner
 /usr/lib64/libexec/ksmserver-logout-greeter
 /usr/lib64/libexec/ksyncdbusenv
-/usr/lib64/libexec/startplasma
+/usr/lib64/libexec/plasma-sourceenv.sh
+/usr/lib64/libexec/startplasma-waylandsession
 
 %files bin
 %defattr(-,root,root,-)
 /usr/bin/gmenudbusmenuproxy
-/usr/bin/kcheckrunning
 /usr/bin/kcminit
 /usr/bin/kcminit_startup
-/usr/bin/kdostartupconfig5
 /usr/bin/klipper
 /usr/bin/krunner
 /usr/bin/ksmserver
 /usr/bin/ksplashqml
-/usr/bin/kstartupconfig5
+/usr/bin/plasma_session
 /usr/bin/plasma_waitforname
 /usr/bin/plasmashell
 /usr/bin/plasmawindowed
-/usr/bin/startkde
-/usr/bin/startplasmacompositor
+/usr/bin/startplasma-wayland
+/usr/bin/startplasma-x11
 /usr/bin/systemmonitor
 /usr/bin/xembedsniproxy
 
@@ -386,8 +387,10 @@ EOF
 /usr/share/desktop-directories/kf5-utilities-pim.directory
 /usr/share/desktop-directories/kf5-utilities-xutils.directory
 /usr/share/desktop-directories/kf5-utilities.directory
+/usr/share/kconf_update/krunnerglobalshortcuts.upd
 /usr/share/kconf_update/krunnerplugins.upd
 /usr/share/kdevappwizard/templates/ion-dataengine.tar.bz2
+/usr/share/kglobalaccel/krunner.desktop
 /usr/share/kio_desktop/directory.desktop
 /usr/share/kio_desktop/directory.trash
 /usr/share/knotifications5/freespacenotifier.notifyrc
@@ -425,12 +428,7 @@ EOF
 /usr/share/kservices5/plasma-applet-org.kde.plasma.systemmonitor.memory.desktop
 /usr/share/kservices5/plasma-applet-org.kde.plasma.systemmonitor.net.desktop
 /usr/share/kservices5/plasma-applet-org.kde.plasma.systemtray.desktop
-/usr/share/kservices5/plasma-containmentactions-applauncher.desktop
-/usr/share/kservices5/plasma-containmentactions-contextmenu.desktop
-/usr/share/kservices5/plasma-containmentactions-paste.desktop
 /usr/share/kservices5/plasma-containmentactions-switchactivity.desktop
-/usr/share/kservices5/plasma-containmentactions-switchdesktop.desktop
-/usr/share/kservices5/plasma-containmentactions-switchwindow.desktop
 /usr/share/kservices5/plasma-dataengine-activities.desktop
 /usr/share/kservices5/plasma-dataengine-applicationjobs.desktop
 /usr/share/kservices5/plasma-dataengine-apps.desktop
@@ -449,18 +447,6 @@ EOF
 /usr/share/kservices5/plasma-dataengine-packagekit.desktop
 /usr/share/kservices5/plasma-dataengine-places.desktop
 /usr/share/kservices5/plasma-dataengine-powermanagement.desktop
-/usr/share/kservices5/plasma-dataengine-share-addon-im9.desktop
-/usr/share/kservices5/plasma-dataengine-share-addon-imgsusepasteorg.desktop
-/usr/share/kservices5/plasma-dataengine-share-addon-imgur.desktop
-/usr/share/kservices5/plasma-dataengine-share-addon-kde.desktop
-/usr/share/kservices5/plasma-dataengine-share-addon-pastebincom.desktop
-/usr/share/kservices5/plasma-dataengine-share-addon-pasteopensuseorg.desktop
-/usr/share/kservices5/plasma-dataengine-share-addon-pasteubuntucom.desktop
-/usr/share/kservices5/plasma-dataengine-share-addon-privatepastecom.desktop
-/usr/share/kservices5/plasma-dataengine-share-addon-simplestimagehosting.desktop
-/usr/share/kservices5/plasma-dataengine-share-addon-wklej.desktop
-/usr/share/kservices5/plasma-dataengine-share-addon-wstaw.desktop
-/usr/share/kservices5/plasma-dataengine-share.desktop
 /usr/share/kservices5/plasma-dataengine-soliddevice.desktop
 /usr/share/kservices5/plasma-dataengine-statusnotifieritem.desktop
 /usr/share/kservices5/plasma-dataengine-systemmonitor.desktop
@@ -493,7 +479,6 @@ EOF
 /usr/share/kservicetypes5/phononbackend.desktop
 /usr/share/kservicetypes5/plasma-geolocationprovider.desktop
 /usr/share/kservicetypes5/plasma-layouttemplate.desktop
-/usr/share/kservicetypes5/plasma_shareprovider.desktop
 /usr/share/ksplash/Themes/Classic/FadeIn.qml
 /usr/share/ksplash/Themes/Classic/Preview.png
 /usr/share/ksplash/Themes/Classic/Theme.rc
@@ -776,31 +761,8 @@ EOF
 /usr/share/plasma/services/org.kde.plasma.clipboard.operations
 /usr/share/plasma/services/packagekit.operations
 /usr/share/plasma/services/powermanagementservice.operations
-/usr/share/plasma/services/share.operations
 /usr/share/plasma/services/soliddevice.operations
 /usr/share/plasma/services/statusnotifieritem.operations
-/usr/share/plasma/shareprovider/im9/contents/code/main.js
-/usr/share/plasma/shareprovider/im9/metadata.desktop
-/usr/share/plasma/shareprovider/imgsusepasteorg/contents/code/main.js
-/usr/share/plasma/shareprovider/imgsusepasteorg/metadata.desktop
-/usr/share/plasma/shareprovider/imgur/contents/code/main.js
-/usr/share/plasma/shareprovider/imgur/metadata.desktop
-/usr/share/plasma/shareprovider/kde/contents/code/main.js
-/usr/share/plasma/shareprovider/kde/metadata.desktop
-/usr/share/plasma/shareprovider/pastebincom/contents/code/main.js
-/usr/share/plasma/shareprovider/pastebincom/metadata.desktop
-/usr/share/plasma/shareprovider/pasteopensuseorg/contents/code/main.js
-/usr/share/plasma/shareprovider/pasteopensuseorg/metadata.desktop
-/usr/share/plasma/shareprovider/pasteubuntucom/contents/code/main.js
-/usr/share/plasma/shareprovider/pasteubuntucom/metadata.desktop
-/usr/share/plasma/shareprovider/privatepastecom/contents/code/main.js
-/usr/share/plasma/shareprovider/privatepastecom/metadata.desktop
-/usr/share/plasma/shareprovider/simplestimagehosting/contents/code/main.js
-/usr/share/plasma/shareprovider/simplestimagehosting/metadata.desktop
-/usr/share/plasma/shareprovider/wklej/contents/code/main.js
-/usr/share/plasma/shareprovider/wklej/metadata.desktop
-/usr/share/plasma/shareprovider/wstaw/contents/code/main.js
-/usr/share/plasma/shareprovider/wstaw/metadata.desktop
 /usr/share/plasma/wallpapers/org.kde.color/contents/config/main.xml
 /usr/share/plasma/wallpapers/org.kde.color/contents/ui/config.qml
 /usr/share/plasma/wallpapers/org.kde.color/contents/ui/main.qml
@@ -824,6 +786,9 @@ EOF
 /usr/share/plasma/wallpapers/org.kde.slideshow/contents/ui/main.qml
 /usr/share/plasma/wallpapers/org.kde.slideshow/metadata.desktop
 /usr/share/plasma/wallpapers/org.kde.slideshow/metadata.json
+/usr/share/qlogging-categories5/klipper.categories
+/usr/share/qlogging-categories5/libnotificationmanager.categories
+/usr/share/qlogging-categories5/plasma-workspace.categories
 /usr/share/sddm/themes/breeze/Background.qml
 /usr/share/sddm/themes/breeze/BreezeMenuStyle.qml
 /usr/share/sddm/themes/breeze/KeyboardButton.qml
@@ -850,12 +815,8 @@ EOF
 /usr/share/wayland-sessions/plasmawayland.desktop
 /usr/share/xdg/autostart/gmenudbusmenuproxy.desktop
 /usr/share/xdg/autostart/klipper.desktop
-/usr/share/xdg/autostart/krunner.desktop
 /usr/share/xdg/autostart/org.kde.plasmashell.desktop
 /usr/share/xdg/autostart/xembedsniproxy.desktop
-/usr/share/xdg/klipper.categories
-/usr/share/xdg/libnotificationmanager.categories
-/usr/share/xdg/plasma-workspace.categories
 /usr/share/xdg/plasmanotifyrc
 /usr/share/xdg/taskmanagerrulesrc
 /usr/share/xsessions/plasma.desktop
@@ -870,6 +831,7 @@ EOF
 /usr/include/kworkspace5/kdisplaymanager.h
 /usr/include/kworkspace5/kworkspace.h
 /usr/include/kworkspace5/kworkspace_export.h
+/usr/include/kworkspace5/sessionmanagement.h
 /usr/include/notificationmanager/job.h
 /usr/include/notificationmanager/jobsmodel.h
 /usr/include/notificationmanager/notification.h
@@ -956,13 +918,21 @@ EOF
 /usr/share/doc/HTML/en/PolicyKit-kde/introduction.docbook
 /usr/share/doc/HTML/en/kcontrol/screenlocker/index.cache.bz2
 /usr/share/doc/HTML/en/kcontrol/screenlocker/index.docbook
+/usr/share/doc/HTML/en/kcontrol/translations/go-top.png
 /usr/share/doc/HTML/en/kcontrol/translations/index.cache.bz2
 /usr/share/doc/HTML/en/kcontrol/translations/index.docbook
+/usr/share/doc/HTML/en/kcontrol/translations/list-remove.png
 /usr/share/doc/HTML/en/klipper/index.cache.bz2
 /usr/share/doc/HTML/en/klipper/index.docbook
 /usr/share/doc/HTML/en/klipper/klipper-application.png
 /usr/share/doc/HTML/en/klipper/klipper-widget.png
 /usr/share/doc/HTML/en/klipper/screenshot.png
+/usr/share/doc/HTML/id/kcontrol/screenlocker/index.cache.bz2
+/usr/share/doc/HTML/id/kcontrol/screenlocker/index.docbook
+/usr/share/doc/HTML/id/kcontrol/translations/index.cache.bz2
+/usr/share/doc/HTML/id/kcontrol/translations/index.docbook
+/usr/share/doc/HTML/id/klipper/index.cache.bz2
+/usr/share/doc/HTML/id/klipper/index.docbook
 /usr/share/doc/HTML/it/kcontrol/screenlocker/index.cache.bz2
 /usr/share/doc/HTML/it/kcontrol/screenlocker/index.docbook
 /usr/share/doc/HTML/it/kcontrol/translations/index.cache.bz2
@@ -1012,18 +982,18 @@ EOF
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libcolorcorrect.so.5
-/usr/lib64/libcolorcorrect.so.5.16.5
+/usr/lib64/libcolorcorrect.so.5.17.0
 /usr/lib64/libkdeinit5_kcminit.so
 /usr/lib64/libkdeinit5_kcminit_startup.so
 /usr/lib64/libkdeinit5_klipper.so
 /usr/lib64/libkdeinit5_ksmserver.so
 /usr/lib64/libkworkspace5.so.5
-/usr/lib64/libkworkspace5.so.5.16.5
+/usr/lib64/libkworkspace5.so.5.17.0
 /usr/lib64/libnotificationmanager.so.1
-/usr/lib64/libnotificationmanager.so.5.16.5
+/usr/lib64/libnotificationmanager.so.5.17.0
 /usr/lib64/libplasma-geolocation-interface.so.5
-/usr/lib64/libplasma-geolocation-interface.so.5.16.5
-/usr/lib64/libtaskmanager.so.5.16.5
+/usr/lib64/libplasma-geolocation-interface.so.5.17.0
+/usr/lib64/libtaskmanager.so.5.17.0
 /usr/lib64/libtaskmanager.so.6
 /usr/lib64/libweather_ion.so.7
 /usr/lib64/libweather_ion.so.7.0.0
@@ -1067,6 +1037,11 @@ EOF
 /usr/lib64/qt5/plugins/plasma/applets/plasma_applet_calendar.so
 /usr/lib64/qt5/plugins/plasma/applets/plasma_applet_icon.so
 /usr/lib64/qt5/plugins/plasma/applets/plasma_applet_notifications.so
+/usr/lib64/qt5/plugins/plasma/containmentactions/plasma_containmentactions_applauncher.so
+/usr/lib64/qt5/plugins/plasma/containmentactions/plasma_containmentactions_contextmenu.so
+/usr/lib64/qt5/plugins/plasma/containmentactions/plasma_containmentactions_paste.so
+/usr/lib64/qt5/plugins/plasma/containmentactions/plasma_containmentactions_switchdesktop.so
+/usr/lib64/qt5/plugins/plasma/containmentactions/plasma_containmentactions_switchwindow.so
 /usr/lib64/qt5/plugins/plasma/dataengine/ion_bbcukmet.so
 /usr/lib64/qt5/plugins/plasma/dataengine/ion_envcan.so
 /usr/lib64/qt5/plugins/plasma/dataengine/ion_noaa.so
@@ -1089,19 +1064,12 @@ EOF
 /usr/lib64/qt5/plugins/plasma/dataengine/plasma_engine_packagekit.so
 /usr/lib64/qt5/plugins/plasma/dataengine/plasma_engine_places.so
 /usr/lib64/qt5/plugins/plasma/dataengine/plasma_engine_powermanagement.so
-/usr/lib64/qt5/plugins/plasma/dataengine/plasma_engine_share.so
 /usr/lib64/qt5/plugins/plasma/dataengine/plasma_engine_soliddevice.so
 /usr/lib64/qt5/plugins/plasma/dataengine/plasma_engine_statusnotifieritem.so
 /usr/lib64/qt5/plugins/plasma/dataengine/plasma_engine_systemmonitor.so
 /usr/lib64/qt5/plugins/plasma/dataengine/plasma_engine_time.so
 /usr/lib64/qt5/plugins/plasma/dataengine/plasma_engine_weather.so
-/usr/lib64/qt5/plugins/plasma/packagestructure/plasma_packagestructure_share.so
-/usr/lib64/qt5/plugins/plasma_containmentactions_applauncher.so
-/usr/lib64/qt5/plugins/plasma_containmentactions_contextmenu.so
-/usr/lib64/qt5/plugins/plasma_containmentactions_paste.so
 /usr/lib64/qt5/plugins/plasma_containmentactions_switchactivity.so
-/usr/lib64/qt5/plugins/plasma_containmentactions_switchdesktop.so
-/usr/lib64/qt5/plugins/plasma_containmentactions_switchwindow.so
 /usr/lib64/qt5/plugins/plasmacalendarplugins/holidays/HolidaysConfig.qml
 /usr/lib64/qt5/plugins/plasmacalendarplugins/holidaysevents.so
 /usr/lib64/qt5/qml/org/kde/colorcorrect/libcolorcorrectplugin.so
@@ -1112,8 +1080,16 @@ EOF
 /usr/lib64/qt5/qml/org/kde/notificationmanager/qmldir
 /usr/lib64/qt5/qml/org/kde/plasma/private/appmenu/libappmenuplugin.so
 /usr/lib64/qt5/qml/org/kde/plasma/private/appmenu/qmldir
+/usr/lib64/qt5/qml/org/kde/plasma/private/containmentlayoutmanager/BasicAppletContainer.qml
+/usr/lib64/qt5/qml/org/kde/plasma/private/containmentlayoutmanager/ConfigOverlayWithHandles.qml
+/usr/lib64/qt5/qml/org/kde/plasma/private/containmentlayoutmanager/PlaceHolder.qml
+/usr/lib64/qt5/qml/org/kde/plasma/private/containmentlayoutmanager/libcontainmentlayoutmanagerplugin.so
+/usr/lib64/qt5/qml/org/kde/plasma/private/containmentlayoutmanager/private/BasicResizeHandle.qml
+/usr/lib64/qt5/qml/org/kde/plasma/private/containmentlayoutmanager/qmldir
 /usr/lib64/qt5/qml/org/kde/plasma/private/digitalclock/libdigitalclockplugin.so
 /usr/lib64/qt5/qml/org/kde/plasma/private/digitalclock/qmldir
+/usr/lib64/qt5/qml/org/kde/plasma/private/kicker/libkickerplugin.so
+/usr/lib64/qt5/qml/org/kde/plasma/private/kicker/qmldir
 /usr/lib64/qt5/qml/org/kde/plasma/private/sessions/libsessionsprivateplugin.so
 /usr/lib64/qt5/qml/org/kde/plasma/private/sessions/qmldir
 /usr/lib64/qt5/qml/org/kde/plasma/private/shell/libplasmashellprivateplugin.so
@@ -1129,13 +1105,12 @@ EOF
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/plasma-workspace/COPYING
-/usr/share/package-licenses/plasma-workspace/COPYING.DOC
-/usr/share/package-licenses/plasma-workspace/COPYING.LIB
-/usr/share/package-licenses/plasma-workspace/freespacenotifier_COPYING
-/usr/share/package-licenses/plasma-workspace/ksmserver_Copyright.txt
-/usr/share/package-licenses/plasma-workspace/ksmserver_LICENSE
+/usr/share/package-licenses/plasma-workspace/67218f86a21c5afe177def300337c7ff8ccf40f9
+/usr/share/package-licenses/plasma-workspace/7c203dee3a03037da436df03c4b25b659c073976
+/usr/share/package-licenses/plasma-workspace/9a1929f4700d2407c70b507b3b2aaf6226a9543c
+/usr/share/package-licenses/plasma-workspace/bd75d59f9d7d9731bfabdc48ecd19e704d218e38
+/usr/share/package-licenses/plasma-workspace/d53ea4b152ed3d9d8a96650bd70f5fbb9e9a3ef9
 
-%files locales -f kio5_applications.lang -f klipper.lang -f ksmserver.lang -f freespacenotifier.lang -f kcm_translations.lang -f kcminit.lang -f kholidays_calendar_plugin.lang -f krunner.lang -f libkworkspace.lang -f phonon_kde_plugin.lang -f plasma_applet_org.kde.plasma.analogclock.lang -f plasma_applet_org.kde.plasma.appmenu.lang -f plasma_applet_org.kde.plasma.battery.lang -f plasma_applet_org.kde.plasma.calendar.lang -f plasma_applet_org.kde.plasma.clipboard.lang -f plasma_applet_org.kde.plasma.devicenotifier.lang -f plasma_applet_org.kde.plasma.digitalclock.lang -f plasma_applet_org.kde.plasma.icon.lang -f plasma_applet_org.kde.plasma.lock_logout.lang -f plasma_applet_org.kde.plasma.mediacontroller.lang -f plasma_applet_org.kde.plasma.notifications.lang -f plasma_applet_org.kde.plasma.panelspacer.lang -f plasma_applet_org.kde.plasma.private.systemtray.lang -f plasma_applet_org.kde.plasma.systemmonitor.cpu.lang -f plasma_applet_org.kde.plasma.systemmonitor.diskactivity.lang -f plasma_applet_org.kde.plasma.systemmonitor.diskusage.lang -f plasma_applet_org.kde.plasma.systemmonitor.memory.lang -f plasma_applet_org.kde.plasma.systemmonitor.net.lang -f plasma_containmentactions_applauncher.lang -f plasma_containmentactions_contextmenu.lang -f plasma_containmentactions_switchwindow.lang -f plasma_engine_applicationjobs.lang -f plasma_engine_devicenotifications.lang -f plasma_engine_keystate.lang -f plasma_engine_mpris2.lang -f plasma_engine_notifications.lang -f plasma_engine_powermanagement.lang -f plasma_engine_share.lang -f plasma_engine_soliddevice.lang -f plasma_engine_time.lang -f plasma_engine_weather.lang -f plasma_lookandfeel_org.kde.lookandfeel.lang -f plasma_package_plasmashell.lang -f plasma_runner_activities.lang -f plasma_runner_baloosearch5.lang -f plasma_runner_bookmarksrunner.lang -f plasma_runner_calculatorrunner.lang -f plasma_runner_kill.lang -f plasma_runner_locations.lang -f plasma_runner_placesrunner.lang -f plasma_runner_powerdevil.lang -f plasma_runner_recentdocuments.lang -f plasma_runner_services.lang -f plasma_runner_sessions.lang -f plasma_runner_shell.lang -f plasma_runner_solid.lang -f plasma_runner_webshortcuts.lang -f plasma_runner_windowedwidgets.lang -f plasma_runner_windows.lang -f plasma_wallpaper_org.kde.color.lang -f plasma_wallpaper_org.kde.image.lang -f plasmashell.lang -f plasmashellprivateplugin.lang -f soliduiserver5.lang -f systemmonitor.lang -f kio_desktop.lang -f libnotificationmanager.lang -f plasma_engine_dict.lang -f plasma_runner_appstream.lang
+%files locales -f kio5_applications.lang -f klipper.lang -f ksmserver.lang -f freespacenotifier.lang -f kcm_translations.lang -f kcminit.lang -f kholidays_calendar_plugin.lang -f krunner.lang -f libkicker.lang -f libkworkspace.lang -f phonon_kde_plugin.lang -f plasma_applet_org.kde.plasma.analogclock.lang -f plasma_applet_org.kde.plasma.appmenu.lang -f plasma_applet_org.kde.plasma.battery.lang -f plasma_applet_org.kde.plasma.calendar.lang -f plasma_applet_org.kde.plasma.clipboard.lang -f plasma_applet_org.kde.plasma.devicenotifier.lang -f plasma_applet_org.kde.plasma.digitalclock.lang -f plasma_applet_org.kde.plasma.icon.lang -f plasma_applet_org.kde.plasma.lock_logout.lang -f plasma_applet_org.kde.plasma.mediacontroller.lang -f plasma_applet_org.kde.plasma.notifications.lang -f plasma_applet_org.kde.plasma.panelspacer.lang -f plasma_applet_org.kde.plasma.private.systemtray.lang -f plasma_applet_org.kde.plasma.systemmonitor.cpu.lang -f plasma_applet_org.kde.plasma.systemmonitor.diskactivity.lang -f plasma_applet_org.kde.plasma.systemmonitor.diskusage.lang -f plasma_applet_org.kde.plasma.systemmonitor.memory.lang -f plasma_applet_org.kde.plasma.systemmonitor.net.lang -f plasma_containmentactions_applauncher.lang -f plasma_containmentactions_contextmenu.lang -f plasma_containmentactions_switchwindow.lang -f plasma_engine_applicationjobs.lang -f plasma_engine_devicenotifications.lang -f plasma_engine_keystate.lang -f plasma_engine_mpris2.lang -f plasma_engine_notifications.lang -f plasma_engine_powermanagement.lang -f plasma_engine_soliddevice.lang -f plasma_engine_time.lang -f plasma_engine_weather.lang -f plasma_lookandfeel_org.kde.lookandfeel.lang -f plasma_package_plasmashell.lang -f plasma_runner_activities.lang -f plasma_runner_baloosearch5.lang -f plasma_runner_bookmarksrunner.lang -f plasma_runner_calculatorrunner.lang -f plasma_runner_kill.lang -f plasma_runner_locations.lang -f plasma_runner_placesrunner.lang -f plasma_runner_powerdevil.lang -f plasma_runner_recentdocuments.lang -f plasma_runner_services.lang -f plasma_runner_sessions.lang -f plasma_runner_shell.lang -f plasma_runner_webshortcuts.lang -f plasma_runner_windowedwidgets.lang -f plasma_runner_windows.lang -f plasma_wallpaper_org.kde.color.lang -f plasma_wallpaper_org.kde.image.lang -f plasmashell.lang -f plasmashellprivateplugin.lang -f soliduiserver5.lang -f systemmonitor.lang -f kio_desktop.lang -f libnotificationmanager.lang -f plasma_engine_dict.lang -f plasma_engine_hotplug.lang -f plasma_runner_appstream.lang
 %defattr(-,root,root,-)
 
