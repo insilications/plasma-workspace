@@ -6,7 +6,7 @@
 #
 Name     : plasma-workspace
 Version  : 5.17.0
-Release  : 38
+Release  : 39
 URL      : https://download.kde.org/stable/plasma/5.17.0/plasma-workspace-5.17.0.tar.xz
 Source0  : https://download.kde.org/stable/plasma/5.17.0/plasma-workspace-5.17.0.tar.xz
 Source1 : https://download.kde.org/stable/plasma/5.17.0/plasma-workspace-5.17.0.tar.xz.sig
