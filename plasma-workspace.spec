@@ -6,11 +6,11 @@
 #
 Name     : plasma-workspace
 Version  : 5.17.0
-Release  : 39
+Release  : 40
 URL      : https://download.kde.org/stable/plasma/5.17.0/plasma-workspace-5.17.0.tar.xz
 Source0  : https://download.kde.org/stable/plasma/5.17.0/plasma-workspace-5.17.0.tar.xz
 Source1 : https://download.kde.org/stable/plasma/5.17.0/plasma-workspace-5.17.0.tar.xz.sig
-Summary  : KDE Plasma Workspace
+Summary  : No detailed summary available
 Group    : Development/Tools
 License  : BSD-3-Clause GFDL-1.2 GPL-2.0 LGPL-2.1 MIT
 Requires: plasma-workspace-bin = %{version}-%{release}
@@ -31,9 +31,12 @@ BuildRequires : extra-cmake-modules pkgconfig(xcb) xcb-util-cursor-dev xcb-util-
 BuildRequires : gmp-dev
 BuildRequires : kactivities-dev
 BuildRequires : kactivities-stats-dev
+BuildRequires : karchive-dev
 BuildRequires : kcodecs-dev
 BuildRequires : kcompletion-dev
+BuildRequires : kcrash-dev
 BuildRequires : kdbusaddons-dev
+BuildRequires : kdeclarative-dev
 BuildRequires : kded-dev
 BuildRequires : kdelibs4support-dev
 BuildRequires : kdesignerplugin-dev
@@ -52,6 +55,7 @@ BuildRequires : kitemviews-dev
 BuildRequires : kjobwidgets-dev
 BuildRequires : kjs-dev
 BuildRequires : kjsembed-dev
+BuildRequires : knewstuff-dev
 BuildRequires : knotifications-dev
 BuildRequires : knotifyconfig-dev
 BuildRequires : kpackage-dev
@@ -61,7 +65,9 @@ BuildRequires : kpty-dev
 BuildRequires : krunner-dev
 BuildRequires : kscreenlocker-dev
 BuildRequires : ktexteditor-dev
+BuildRequires : ktextwidgets-dev
 BuildRequires : kunitconversion-dev
+BuildRequires : kwallet-dev
 BuildRequires : kwayland-dev
 BuildRequires : kwidgetsaddons-dev
 BuildRequires : kwin-dev
@@ -77,6 +83,7 @@ BuildRequires : libksysguard-dev
 BuildRequires : libqalculate-dev
 BuildRequires : libxcb-dev
 BuildRequires : mpfr-dev
+BuildRequires : networkmanager-qt-dev
 BuildRequires : phonon-dev
 BuildRequires : pkg-config
 BuildRequires : pkgconfig(iso-codes)
@@ -85,6 +92,7 @@ BuildRequires : plasma-workspace-wallpapers
 BuildRequires : prison-dev
 BuildRequires : qtbase-dev mesa-dev
 BuildRequires : qttools-dev
+BuildRequires : qtx11extras-dev
 BuildRequires : solid-dev
 BuildRequires : sonnet-dev
 BuildRequires : xcb-util-cursor-dev
@@ -97,14 +105,10 @@ BuildRequires : xcb-util-xrm-dev
 BuildRequires : zlib-dev
 
 %description
-Plasma Weather Ion Dataengine
------------------------------
--- Note --
-Remember that this dataengine relies on a semi-public API,
-as exposed by the "plasma/weather/ion.h" header.
-While this API has been the same for some time, there is no guarantee
-that it will be stable for all future versions of the weather dataengine
-as part of Plasma Workspace.
+KDE Splash:
+===========
+The 'kcm' directory contains the control module for configuring the splashscreen.
+Other directories contain various splash implementations:
 
 %package bin
 Summary: bin components for the plasma-workspace package.
@@ -131,7 +135,6 @@ Requires: plasma-workspace-lib = %{version}-%{release}
 Requires: plasma-workspace-bin = %{version}-%{release}
 Requires: plasma-workspace-data = %{version}-%{release}
 Provides: plasma-workspace-devel = %{version}-%{release}
-Requires: plasma-workspace = %{version}-%{release}
 Requires: plasma-workspace = %{version}-%{release}
 
 %description dev
@@ -180,10 +183,9 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1571165889
+export SOURCE_DATE_EPOCH=1571463142
 mkdir -p clr-build
 pushd clr-build
-# -Werror is for werrorists
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -197,7 +199,7 @@ make  %{?_smp_mflags}  VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1571165889
+export SOURCE_DATE_EPOCH=1571463142
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/plasma-workspace
 cp %{_builddir}/plasma-workspace-5.17.0/COPYING %{buildroot}/usr/share/package-licenses/plasma-workspace/7c203dee3a03037da436df03c4b25b659c073976
