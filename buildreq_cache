@@ -1,4 +1,4 @@
-5.17.0
+5.17.1
 baloo-dev
 gmp-dev
 kactivities-dev
@@ -31,4 +31,5 @@ phonon-dev
 pkgconfig(iso-codes)
 prison-dev
 qtx11extras-dev
+util-linux
 zlib-dev
