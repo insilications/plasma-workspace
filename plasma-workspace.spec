@@ -5,11 +5,11 @@
 # Source0 file verified with key 0xEC94D18F7F05997E (jr@jriddell.org)
 #
 Name     : plasma-workspace
-Version  : 5.17.3
-Release  : 43
-URL      : https://download.kde.org/stable/plasma/5.17.3/plasma-workspace-5.17.3.tar.xz
-Source0  : https://download.kde.org/stable/plasma/5.17.3/plasma-workspace-5.17.3.tar.xz
-Source1 : https://download.kde.org/stable/plasma/5.17.3/plasma-workspace-5.17.3.tar.xz.sig
+Version  : 5.17.4
+Release  : 44
+URL      : https://download.kde.org/stable/plasma/5.17.4/plasma-workspace-5.17.4.tar.xz
+Source0  : https://download.kde.org/stable/plasma/5.17.4/plasma-workspace-5.17.4.tar.xz
+Source1 : https://download.kde.org/stable/plasma/5.17.4/plasma-workspace-5.17.4.tar.xz.sig
 Summary  : KDE Plasma Workspace
 Group    : Development/Tools
 License  : BSD-3-Clause GFDL-1.2 GPL-2.0 LGPL-2.1 MIT
@@ -173,14 +173,15 @@ locales components for the plasma-workspace package.
 
 
 %prep
-%setup -q -n plasma-workspace-5.17.3
+%setup -q -n plasma-workspace-5.17.4
+cd %{_builddir}/plasma-workspace-5.17.4
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1573581932
+export SOURCE_DATE_EPOCH=1575394872
 mkdir -p clr-build
 pushd clr-build
 # -Werror is for werrorists
@@ -197,15 +198,15 @@ make  %{?_smp_mflags}  VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1573581932
+export SOURCE_DATE_EPOCH=1575394872
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/plasma-workspace
-cp %{_builddir}/plasma-workspace-5.17.3/COPYING %{buildroot}/usr/share/package-licenses/plasma-workspace/7c203dee3a03037da436df03c4b25b659c073976
-cp %{_builddir}/plasma-workspace-5.17.3/COPYING.DOC %{buildroot}/usr/share/package-licenses/plasma-workspace/bd75d59f9d7d9731bfabdc48ecd19e704d218e38
-cp %{_builddir}/plasma-workspace-5.17.3/COPYING.LIB %{buildroot}/usr/share/package-licenses/plasma-workspace/9a1929f4700d2407c70b507b3b2aaf6226a9543c
-cp %{_builddir}/plasma-workspace-5.17.3/freespacenotifier/COPYING %{buildroot}/usr/share/package-licenses/plasma-workspace/7c203dee3a03037da436df03c4b25b659c073976
-cp %{_builddir}/plasma-workspace-5.17.3/ksmserver/Copyright.txt %{buildroot}/usr/share/package-licenses/plasma-workspace/d53ea4b152ed3d9d8a96650bd70f5fbb9e9a3ef9
-cp %{_builddir}/plasma-workspace-5.17.3/ksmserver/LICENSE %{buildroot}/usr/share/package-licenses/plasma-workspace/67218f86a21c5afe177def300337c7ff8ccf40f9
+cp %{_builddir}/plasma-workspace-5.17.4/COPYING %{buildroot}/usr/share/package-licenses/plasma-workspace/7c203dee3a03037da436df03c4b25b659c073976
+cp %{_builddir}/plasma-workspace-5.17.4/COPYING.DOC %{buildroot}/usr/share/package-licenses/plasma-workspace/bd75d59f9d7d9731bfabdc48ecd19e704d218e38
+cp %{_builddir}/plasma-workspace-5.17.4/COPYING.LIB %{buildroot}/usr/share/package-licenses/plasma-workspace/9a1929f4700d2407c70b507b3b2aaf6226a9543c
+cp %{_builddir}/plasma-workspace-5.17.4/freespacenotifier/COPYING %{buildroot}/usr/share/package-licenses/plasma-workspace/7c203dee3a03037da436df03c4b25b659c073976
+cp %{_builddir}/plasma-workspace-5.17.4/ksmserver/Copyright.txt %{buildroot}/usr/share/package-licenses/plasma-workspace/d53ea4b152ed3d9d8a96650bd70f5fbb9e9a3ef9
+cp %{_builddir}/plasma-workspace-5.17.4/ksmserver/LICENSE %{buildroot}/usr/share/package-licenses/plasma-workspace/67218f86a21c5afe177def300337c7ff8ccf40f9
 pushd clr-build
 %make_install
 popd
@@ -982,18 +983,18 @@ EOF
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libcolorcorrect.so.5
-/usr/lib64/libcolorcorrect.so.5.17.3
+/usr/lib64/libcolorcorrect.so.5.17.4
 /usr/lib64/libkdeinit5_kcminit.so
 /usr/lib64/libkdeinit5_kcminit_startup.so
 /usr/lib64/libkdeinit5_klipper.so
 /usr/lib64/libkdeinit5_ksmserver.so
 /usr/lib64/libkworkspace5.so.5
-/usr/lib64/libkworkspace5.so.5.17.3
+/usr/lib64/libkworkspace5.so.5.17.4
 /usr/lib64/libnotificationmanager.so.1
-/usr/lib64/libnotificationmanager.so.5.17.3
+/usr/lib64/libnotificationmanager.so.5.17.4
 /usr/lib64/libplasma-geolocation-interface.so.5
-/usr/lib64/libplasma-geolocation-interface.so.5.17.3
-/usr/lib64/libtaskmanager.so.5.17.3
+/usr/lib64/libplasma-geolocation-interface.so.5.17.4
+/usr/lib64/libtaskmanager.so.5.17.4
 /usr/lib64/libtaskmanager.so.6
 /usr/lib64/libweather_ion.so.7
 /usr/lib64/libweather_ion.so.7.0.0
