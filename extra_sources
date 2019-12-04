@@ -1,0 +1,3 @@
+kde.pam               -m644 /usr/share/pam.d/kde
+kde-np.pam            -m644 /usr/share/pam.d/kde-np
+kscreensaver.pam      -m644 /usr/share/pam.d/kscreensaver

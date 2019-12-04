@@ -1,0 +1,6 @@
+# Begin /usr/share/pam.d/kscreensaver
+
+auth    include system-auth
+account include common-account
+
+# End /usr/share/pam.d/kscreensaver

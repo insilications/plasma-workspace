@@ -1,0 +1,13 @@
+# Begin /usr/share/pam.d/kde-np
+
+auth     requisite      pam_nologin.so
+auth     required       pam_env.so
+
+auth     required       pam_succeed_if.so uid >= 1000 quiet
+auth     required       pam_permit.so
+
+account  include        common-account
+password include        common-password
+session  include        common-session
+
+# End /usr/share/pam.d/kde-np
