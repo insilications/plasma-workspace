@@ -5,15 +5,15 @@
 # Source0 file verified with key 0xEC94D18F7F05997E (jr@jriddell.org)
 #
 Name     : plasma-workspace
-Version  : 5.18.4.1
-Release  : 51
-URL      : https://download.kde.org/stable/plasma/5.18.4/plasma-workspace-5.18.4.1.tar.xz
-Source0  : https://download.kde.org/stable/plasma/5.18.4/plasma-workspace-5.18.4.1.tar.xz
-Source1  : https://download.kde.org/stable/plasma/5.18.4/plasma-workspace-5.18.4.1.tar.xz.sig
+Version  : 5.18.5
+Release  : 52
+URL      : https://download.kde.org/stable/plasma/5.18.5/plasma-workspace-5.18.5.tar.xz
+Source0  : https://download.kde.org/stable/plasma/5.18.5/plasma-workspace-5.18.5.tar.xz
+Source1  : https://download.kde.org/stable/plasma/5.18.5/plasma-workspace-5.18.5.tar.xz.sig
 Source2  : kde.pam
 Source3  : kde-np.pam
 Source4  : kscreensaver.pam
-Summary  : KDE Plasma Workspace
+Summary  : No detailed summary available
 Group    : Development/Tools
 License  : BSD-3-Clause GFDL-1.2 GPL-2.0 LGPL-2.1 MIT
 Requires: plasma-workspace-bin = %{version}-%{release}
@@ -31,6 +31,7 @@ BuildRequires : breeze-icons
 BuildRequires : buildreq-cmake
 BuildRequires : buildreq-kde
 BuildRequires : extra-cmake-modules pkgconfig(xcb) xcb-util-cursor-dev xcb-util-image-dev xcb-util-keysyms-dev xcb-util-renderutil-dev xcb-util-wm-dev xcb-util-dev
+BuildRequires : extra-cmake-modules-data
 BuildRequires : gmp-dev
 BuildRequires : kactivities-dev
 BuildRequires : kactivities-stats-dev
@@ -41,11 +42,13 @@ BuildRequires : kded-dev
 BuildRequires : kdelibs4support-dev
 BuildRequires : kdesignerplugin-dev
 BuildRequires : kdesu-dev
+BuildRequires : kdoctools-dev
 BuildRequires : kemoticons-dev
 BuildRequires : kfilemetadata-dev
 BuildRequires : kglobalaccel-dev
 BuildRequires : kguiaddons-dev
 BuildRequires : kholidays-dev
+BuildRequires : ki18n-dev
 BuildRequires : kiconthemes-dev
 BuildRequires : kidletime-dev
 BuildRequires : kinit-dev
@@ -61,6 +64,7 @@ BuildRequires : kpackage-dev
 BuildRequires : kparts-dev
 BuildRequires : kpeople-dev
 BuildRequires : kpty-dev
+BuildRequires : kquickcharts-dev
 BuildRequires : krunner-dev
 BuildRequires : kscreenlocker-dev
 BuildRequires : ktexteditor-dev
@@ -80,6 +84,7 @@ BuildRequires : libksysguard-dev
 BuildRequires : libqalculate-dev
 BuildRequires : libxcb-dev
 BuildRequires : mpfr-dev
+BuildRequires : networkmanager-qt-dev
 BuildRequires : phonon-dev
 BuildRequires : pkg-config
 BuildRequires : pkgconfig(iso-codes)
@@ -100,14 +105,10 @@ BuildRequires : xcb-util-xrm-dev
 BuildRequires : zlib-dev
 
 %description
-Plasma Weather Ion Dataengine
------------------------------
--- Note --
-Remember that this dataengine relies on a semi-public API,
-as exposed by the "plasma/weather/ion.h" header.
-While this API has been the same for some time, there is no guarantee
-that it will be stable for all future versions of the weather dataengine
-as part of Plasma Workspace.
+KDE Splash:
+===========
+The 'kcm' directory contains the control module for configuring the splashscreen.
+Other directories contain various splash implementations:
 
 %package bin
 Summary: bin components for the plasma-workspace package.
@@ -134,7 +135,6 @@ Requires: plasma-workspace-lib = %{version}-%{release}
 Requires: plasma-workspace-bin = %{version}-%{release}
 Requires: plasma-workspace-data = %{version}-%{release}
 Provides: plasma-workspace-devel = %{version}-%{release}
-Requires: plasma-workspace = %{version}-%{release}
 Requires: plasma-workspace = %{version}-%{release}
 
 %description dev
@@ -176,40 +176,39 @@ locales components for the plasma-workspace package.
 
 
 %prep
-%setup -q -n plasma-workspace-5.18.4.1
-cd %{_builddir}/plasma-workspace-5.18.4.1
+%setup -q -n plasma-workspace-5.18.5
+cd %{_builddir}/plasma-workspace-5.18.5
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1585690222
+export SOURCE_DATE_EPOCH=1588706933
 mkdir -p clr-build
 pushd clr-build
-# -Werror is for werrorists
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
 export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
 export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 %cmake .. -DXDG_CONFIG_DIRS=/usr/share/xdg
 make  %{?_smp_mflags}  VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1585690222
+export SOURCE_DATE_EPOCH=1588706933
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/plasma-workspace
-cp %{_builddir}/plasma-workspace-5.18.4.1/COPYING %{buildroot}/usr/share/package-licenses/plasma-workspace/7c203dee3a03037da436df03c4b25b659c073976
-cp %{_builddir}/plasma-workspace-5.18.4.1/COPYING.DOC %{buildroot}/usr/share/package-licenses/plasma-workspace/bd75d59f9d7d9731bfabdc48ecd19e704d218e38
-cp %{_builddir}/plasma-workspace-5.18.4.1/COPYING.LIB %{buildroot}/usr/share/package-licenses/plasma-workspace/9a1929f4700d2407c70b507b3b2aaf6226a9543c
-cp %{_builddir}/plasma-workspace-5.18.4.1/freespacenotifier/COPYING %{buildroot}/usr/share/package-licenses/plasma-workspace/7c203dee3a03037da436df03c4b25b659c073976
-cp %{_builddir}/plasma-workspace-5.18.4.1/ksmserver/Copyright.txt %{buildroot}/usr/share/package-licenses/plasma-workspace/d53ea4b152ed3d9d8a96650bd70f5fbb9e9a3ef9
-cp %{_builddir}/plasma-workspace-5.18.4.1/ksmserver/LICENSE %{buildroot}/usr/share/package-licenses/plasma-workspace/67218f86a21c5afe177def300337c7ff8ccf40f9
+cp %{_builddir}/plasma-workspace-5.18.5/COPYING %{buildroot}/usr/share/package-licenses/plasma-workspace/7c203dee3a03037da436df03c4b25b659c073976
+cp %{_builddir}/plasma-workspace-5.18.5/COPYING.DOC %{buildroot}/usr/share/package-licenses/plasma-workspace/bd75d59f9d7d9731bfabdc48ecd19e704d218e38
+cp %{_builddir}/plasma-workspace-5.18.5/COPYING.LIB %{buildroot}/usr/share/package-licenses/plasma-workspace/9a1929f4700d2407c70b507b3b2aaf6226a9543c
+cp %{_builddir}/plasma-workspace-5.18.5/freespacenotifier/COPYING %{buildroot}/usr/share/package-licenses/plasma-workspace/7c203dee3a03037da436df03c4b25b659c073976
+cp %{_builddir}/plasma-workspace-5.18.5/ksmserver/Copyright.txt %{buildroot}/usr/share/package-licenses/plasma-workspace/d53ea4b152ed3d9d8a96650bd70f5fbb9e9a3ef9
+cp %{_builddir}/plasma-workspace-5.18.5/ksmserver/LICENSE %{buildroot}/usr/share/package-licenses/plasma-workspace/67218f86a21c5afe177def300337c7ff8ccf40f9
 pushd clr-build
 %make_install
 popd
@@ -973,18 +972,18 @@ install -m644 %{_sourcedir}/kscreensaver.pam %{buildroot}/usr/share/pam.d/kscree
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libcolorcorrect.so.5
-/usr/lib64/libcolorcorrect.so.5.18.4
+/usr/lib64/libcolorcorrect.so.5.18.5
 /usr/lib64/libkdeinit5_kcminit.so
 /usr/lib64/libkdeinit5_kcminit_startup.so
 /usr/lib64/libkdeinit5_klipper.so
 /usr/lib64/libkdeinit5_ksmserver.so
 /usr/lib64/libkworkspace5.so.5
-/usr/lib64/libkworkspace5.so.5.18.4
+/usr/lib64/libkworkspace5.so.5.18.5
 /usr/lib64/libnotificationmanager.so.1
-/usr/lib64/libnotificationmanager.so.5.18.4
+/usr/lib64/libnotificationmanager.so.5.18.5
 /usr/lib64/libplasma-geolocation-interface.so.5
-/usr/lib64/libplasma-geolocation-interface.so.5.18.4
-/usr/lib64/libtaskmanager.so.5.18.4
+/usr/lib64/libplasma-geolocation-interface.so.5.18.5
+/usr/lib64/libtaskmanager.so.5.18.5
 /usr/lib64/libtaskmanager.so.6
 /usr/lib64/libweather_ion.so.7
 /usr/lib64/libweather_ion.so.7.0.0
