@@ -1,4 +1,4 @@
-5.20.0
+5.20.1.1
 gmp-dev
 kactivities-dev
 kactivities-stats-dev
@@ -12,3 +12,4 @@ krunner-dev
 kwayland-dev
 libqalculate-dev
 mpfr-dev
+prison-dev
