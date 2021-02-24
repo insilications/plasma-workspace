@@ -6,7 +6,7 @@
 #
 Name     : plasma-workspace
 Version  : 5.20.5
-Release  : 62
+Release  : 63
 URL      : https://download.kde.org/stable/plasma/5.20.5/plasma-workspace-5.20.5.tar.xz
 Source0  : https://download.kde.org/stable/plasma/5.20.5/plasma-workspace-5.20.5.tar.xz
 Source1  : https://download.kde.org/stable/plasma/5.20.5/plasma-workspace-5.20.5.tar.xz.sig
@@ -83,7 +83,7 @@ BuildRequires : kwindowsystem-dev
 BuildRequires : kxmlgui-dev
 BuildRequires : libICE-dev
 BuildRequires : libSM-dev
-BuildRequires : libX11-dev libICE-dev libSM-dev libXau-dev libXcomposite-dev libXcursor-dev libXdamage-dev libXdmcp-dev libXext-dev libXfixes-dev libXft-dev libXi-dev libXinerama-dev libXi-dev libXmu-dev libXpm-dev libXrandr-dev libXrender-dev libXres-dev libXScrnSaver-dev libXt-dev libXtst-dev libXv-dev libXxf86misc-dev libXxf86vm-dev
+BuildRequires : libX11-dev libICE-dev libSM-dev libXau-dev libXcomposite-dev libXcursor-dev libXdamage-dev libXdmcp-dev libXext-dev libXfixes-dev libXft-dev libXi-dev libXinerama-dev libXi-dev libXmu-dev libXpm-dev libXrandr-dev libXrender-dev libXres-dev libXScrnSaver-dev libXt-dev libXtst-dev libXv-dev libXxf86vm-dev
 BuildRequires : libXrender-dev
 BuildRequires : libXtst-dev
 BuildRequires : libkscreen-dev
