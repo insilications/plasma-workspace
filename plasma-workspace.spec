@@ -5,11 +5,11 @@
 # Source0 file verified with key 0xEC94D18F7F05997E (jr@jriddell.org)
 #
 Name     : plasma-workspace
-Version  : 5.20.5
-Release  : 63
-URL      : https://download.kde.org/stable/plasma/5.20.5/plasma-workspace-5.20.5.tar.xz
-Source0  : https://download.kde.org/stable/plasma/5.20.5/plasma-workspace-5.20.5.tar.xz
-Source1  : https://download.kde.org/stable/plasma/5.20.5/plasma-workspace-5.20.5.tar.xz.sig
+Version  : 5.21.4
+Release  : 64
+URL      : https://download.kde.org/stable/plasma/5.21.4/plasma-workspace-5.21.4.tar.xz
+Source0  : https://download.kde.org/stable/plasma/5.21.4/plasma-workspace-5.21.4.tar.xz
+Source1  : https://download.kde.org/stable/plasma/5.21.4/plasma-workspace-5.21.4.tar.xz.sig
 Source2  : kde.pam
 Source3  : kde-np.pam
 Source4  : kscreensaver.pam
@@ -21,6 +21,7 @@ Requires: plasma-workspace-data = %{version}-%{release}
 Requires: plasma-workspace-lib = %{version}-%{release}
 Requires: plasma-workspace-license = %{version}-%{release}
 Requires: plasma-workspace-locales = %{version}-%{release}
+Requires: plasma-workspace-services = %{version}-%{release}
 BuildRequires : NetworkManager-dev
 BuildRequires : appstream-dev
 BuildRequires : appstream-extras
@@ -106,6 +107,7 @@ BuildRequires : qtbase-dev mesa-dev
 BuildRequires : qttools-dev
 BuildRequires : solid-dev
 BuildRequires : sonnet-dev
+BuildRequires : syntax-highlighting-dev
 BuildRequires : xcb-util-cursor-dev
 BuildRequires : xcb-util-dev
 BuildRequires : xcb-util-image-dev
@@ -126,6 +128,7 @@ Summary: bin components for the plasma-workspace package.
 Group: Binaries
 Requires: plasma-workspace-data = %{version}-%{release}
 Requires: plasma-workspace-license = %{version}-%{release}
+Requires: plasma-workspace-services = %{version}-%{release}
 
 %description bin
 bin components for the plasma-workspace package.
@@ -186,16 +189,24 @@ Group: Default
 locales components for the plasma-workspace package.
 
 
+%package services
+Summary: services components for the plasma-workspace package.
+Group: Systemd services
+
+%description services
+services components for the plasma-workspace package.
+
+
 %prep
-%setup -q -n plasma-workspace-5.20.5
-cd %{_builddir}/plasma-workspace-5.20.5
+%setup -q -n plasma-workspace-5.21.4
+cd %{_builddir}/plasma-workspace-5.21.4
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1609876770
+export SOURCE_DATE_EPOCH=1618667148
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -211,16 +222,16 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1609876770
+export SOURCE_DATE_EPOCH=1618667148
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/plasma-workspace
-cp %{_builddir}/plasma-workspace-5.20.5/COPYING %{buildroot}/usr/share/package-licenses/plasma-workspace/7c203dee3a03037da436df03c4b25b659c073976
-cp %{_builddir}/plasma-workspace-5.20.5/COPYING.DOC %{buildroot}/usr/share/package-licenses/plasma-workspace/bd75d59f9d7d9731bfabdc48ecd19e704d218e38
-cp %{_builddir}/plasma-workspace-5.20.5/COPYING.LIB %{buildroot}/usr/share/package-licenses/plasma-workspace/9a1929f4700d2407c70b507b3b2aaf6226a9543c
-cp %{_builddir}/plasma-workspace-5.20.5/freespacenotifier/COPYING %{buildroot}/usr/share/package-licenses/plasma-workspace/7c203dee3a03037da436df03c4b25b659c073976
-cp %{_builddir}/plasma-workspace-5.20.5/kcms/kfontinst/viewpart/COPYING.UNICODE %{buildroot}/usr/share/package-licenses/plasma-workspace/ae855f68ab20f57b2cc7e9b03f54a87563424eb9
-cp %{_builddir}/plasma-workspace-5.20.5/ksmserver/Copyright.txt %{buildroot}/usr/share/package-licenses/plasma-workspace/d53ea4b152ed3d9d8a96650bd70f5fbb9e9a3ef9
-cp %{_builddir}/plasma-workspace-5.20.5/ksmserver/LICENSE %{buildroot}/usr/share/package-licenses/plasma-workspace/67218f86a21c5afe177def300337c7ff8ccf40f9
+cp %{_builddir}/plasma-workspace-5.21.4/COPYING %{buildroot}/usr/share/package-licenses/plasma-workspace/7c203dee3a03037da436df03c4b25b659c073976
+cp %{_builddir}/plasma-workspace-5.21.4/COPYING.DOC %{buildroot}/usr/share/package-licenses/plasma-workspace/bd75d59f9d7d9731bfabdc48ecd19e704d218e38
+cp %{_builddir}/plasma-workspace-5.21.4/COPYING.LIB %{buildroot}/usr/share/package-licenses/plasma-workspace/9a1929f4700d2407c70b507b3b2aaf6226a9543c
+cp %{_builddir}/plasma-workspace-5.21.4/freespacenotifier/COPYING %{buildroot}/usr/share/package-licenses/plasma-workspace/7c203dee3a03037da436df03c4b25b659c073976
+cp %{_builddir}/plasma-workspace-5.21.4/kcms/kfontinst/viewpart/COPYING.UNICODE %{buildroot}/usr/share/package-licenses/plasma-workspace/ae855f68ab20f57b2cc7e9b03f54a87563424eb9
+cp %{_builddir}/plasma-workspace-5.21.4/ksmserver/Copyright.txt %{buildroot}/usr/share/package-licenses/plasma-workspace/d53ea4b152ed3d9d8a96650bd70f5fbb9e9a3ef9
+cp %{_builddir}/plasma-workspace-5.21.4/ksmserver/LICENSE %{buildroot}/usr/share/package-licenses/plasma-workspace/67218f86a21c5afe177def300337c7ff8ccf40f9
 pushd clr-build
 %make_install
 popd
@@ -285,7 +296,6 @@ popd
 %find_lang plasma_runner_shell
 %find_lang plasma_runner_webshortcuts
 %find_lang plasma_runner_windowedwidgets
-%find_lang plasma_runner_windows
 %find_lang plasma_wallpaper_org.kde.color
 %find_lang plasma_wallpaper_org.kde.image
 %find_lang plasmashell
@@ -310,7 +320,7 @@ install -m644 %{_sourcedir}/kscreensaver.pam %{buildroot}/usr/share/pam.d/kscree
 %defattr(-,root,root,-)
 /usr/lib64/kconf_update_bin/krdb_clearlibrarypath
 /usr/lib64/kconf_update_bin/krunnerglobalshortcuts
-/usr/lib64/kconf_update_bin/krunnerplugins
+/usr/lib64/kconf_update_bin/krunnerhistory
 /usr/lib64/libexec/baloorunner
 /usr/lib64/libexec/kauth/fontinst
 /usr/lib64/libexec/kauth/fontinst_helper
@@ -371,10 +381,10 @@ install -m644 %{_sourcedir}/kscreensaver.pam %{buildroot}/usr/share/pam.d/kscree
 /usr/share/dbus-1/services/org.kde.KSplash.service
 /usr/share/dbus-1/services/org.kde.LogoutPrompt.service
 /usr/share/dbus-1/services/org.kde.Shutdown.service
-/usr/share/dbus-1/services/org.kde.baloorunner.service
 /usr/share/dbus-1/services/org.kde.fontinst.service
 /usr/share/dbus-1/services/org.kde.krunner.service
 /usr/share/dbus-1/services/org.kde.plasma.Notifications.service
+/usr/share/dbus-1/services/org.kde.runners.baloo.service
 /usr/share/dbus-1/system-services/org.kde.fontinst.service
 /usr/share/dbus-1/system.d/org.kde.fontinst.conf
 /usr/share/desktop-directories/kf5-development-translation.directory
@@ -433,7 +443,7 @@ install -m644 %{_sourcedir}/kscreensaver.pam %{buildroot}/usr/share/pam.d/kscree
 /usr/share/kconf_update/icons_remove_effects.upd
 /usr/share/kconf_update/krdb_libpathwipe.upd
 /usr/share/kconf_update/krunnerglobalshortcuts.upd
-/usr/share/kconf_update/krunnerplugins.upd
+/usr/share/kconf_update/krunnerhistory.upd
 /usr/share/kconf_update/style_widgetstyle_default_breeze.pl
 /usr/share/kconf_update/style_widgetstyle_default_breeze.upd
 /usr/share/kcontrol/pics/logo.png
@@ -649,7 +659,6 @@ install -m644 %{_sourcedir}/kscreensaver.pam %{buildroot}/usr/share/pam.d/kscree
 /usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/components/ActionButton.qml
 /usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/components/Battery.qml
 /usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/components/Clock.qml
-/usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/components/KeyboardLayoutButton.qml
 /usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/components/SessionManagementScreen.qml
 /usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/components/UserDelegate.qml
 /usr/share/plasma/look-and-feel/org.kde.breeze.desktop/contents/components/UserList.qml
@@ -725,7 +734,6 @@ install -m644 %{_sourcedir}/kscreensaver.pam %{buildroot}/usr/share/pam.d/kscree
 /usr/share/plasma/plasmoids/org.kde.plasma.calendar/contents/config/config.qml
 /usr/share/plasma/plasmoids/org.kde.plasma.calendar/contents/config/main.xml
 /usr/share/plasma/plasmoids/org.kde.plasma.calendar/contents/images/mini-calendar.svgz
-/usr/share/plasma/plasmoids/org.kde.plasma.calendar/contents/ui/configAgenda.qml
 /usr/share/plasma/plasmoids/org.kde.plasma.calendar/contents/ui/configGeneral.qml
 /usr/share/plasma/plasmoids/org.kde.plasma.calendar/contents/ui/main.qml
 /usr/share/plasma/plasmoids/org.kde.plasma.calendar/metadata.desktop
@@ -807,6 +815,7 @@ install -m644 %{_sourcedir}/kscreensaver.pam %{buildroot}/usr/share/pam.d/kscree
 /usr/share/plasma/plasmoids/org.kde.plasma.private.systemtray/contents/ui/ExpanderArrow.qml
 /usr/share/plasma/plasmoids/org.kde.plasma.private.systemtray/contents/ui/HiddenItemsView.qml
 /usr/share/plasma/plasmoids/org.kde.plasma.private.systemtray/contents/ui/PlasmoidPopupsContainer.qml
+/usr/share/plasma/plasmoids/org.kde.plasma.private.systemtray/contents/ui/SystemTrayState.qml
 /usr/share/plasma/plasmoids/org.kde.plasma.private.systemtray/contents/ui/items/AbstractItem.qml
 /usr/share/plasma/plasmoids/org.kde.plasma.private.systemtray/contents/ui/items/ItemLoader.qml
 /usr/share/plasma/plasmoids/org.kde.plasma.private.systemtray/contents/ui/items/PlasmoidItem.qml
@@ -871,11 +880,6 @@ install -m644 %{_sourcedir}/kscreensaver.pam %{buildroot}/usr/share/pam.d/kscree
 /usr/share/plasma/wallpapers/org.kde.image/contents/ui/main.qml
 /usr/share/plasma/wallpapers/org.kde.image/metadata.desktop
 /usr/share/plasma/wallpapers/org.kde.image/metadata.json
-/usr/share/plasma/wallpapers/org.kde.image/platformcontents/phone/ui/WallpaperDelegate.qml
-/usr/share/plasma/wallpapers/org.kde.image/platformcontents/phone/ui/config.qml
-/usr/share/plasma/wallpapers/org.kde.image/platformcontents/phone/ui/customwallpaper.qml
-/usr/share/plasma/wallpapers/org.kde.image/platformcontents/touch/ui/WallpaperDelegate.qml
-/usr/share/plasma/wallpapers/org.kde.image/platformcontents/touch/ui/config.qml
 /usr/share/plasma/wallpapers/org.kde.slideshow/contents/config/main.xml
 /usr/share/plasma/wallpapers/org.kde.slideshow/contents/ui/WallpaperDelegate.qml
 /usr/share/plasma/wallpapers/org.kde.slideshow/contents/ui/config.qml
@@ -896,7 +900,6 @@ install -m644 %{_sourcedir}/kscreensaver.pam %{buildroot}/usr/share/pam.d/kscree
 /usr/share/sddm/themes/breeze/components/ActionButton.qml
 /usr/share/sddm/themes/breeze/components/Battery.qml
 /usr/share/sddm/themes/breeze/components/Clock.qml
-/usr/share/sddm/themes/breeze/components/KeyboardLayoutButton.qml
 /usr/share/sddm/themes/breeze/components/SessionManagementScreen.qml
 /usr/share/sddm/themes/breeze/components/UserDelegate.qml
 /usr/share/sddm/themes/breeze/components/UserList.qml
@@ -1094,6 +1097,8 @@ install -m644 %{_sourcedir}/kscreensaver.pam %{buildroot}/usr/share/pam.d/kscree
 /usr/share/doc/HTML/es/kcontrol/fontinst/index.docbook
 /usr/share/doc/HTML/es/kcontrol/fonts/index.cache.bz2
 /usr/share/doc/HTML/es/kcontrol/fonts/index.docbook
+/usr/share/doc/HTML/es/kcontrol/icons/index.cache.bz2
+/usr/share/doc/HTML/es/kcontrol/icons/index.docbook
 /usr/share/doc/HTML/es/kcontrol/kcmstyle/index.cache.bz2
 /usr/share/doc/HTML/es/kcontrol/kcmstyle/index.docbook
 /usr/share/doc/HTML/id/kcontrol/colors/index.cache.bz2
@@ -1138,8 +1143,6 @@ install -m644 %{_sourcedir}/kscreensaver.pam %{buildroot}/usr/share/pam.d/kscree
 /usr/share/doc/HTML/ko/kcontrol/fonts/index.docbook
 /usr/share/doc/HTML/ko/kcontrol/screenlocker/index.cache.bz2
 /usr/share/doc/HTML/ko/kcontrol/screenlocker/index.docbook
-/usr/share/doc/HTML/ko/kcontrol/translations/index.cache.bz2
-/usr/share/doc/HTML/ko/kcontrol/translations/index.docbook
 /usr/share/doc/HTML/nl/kcontrol/colors/index.cache.bz2
 /usr/share/doc/HTML/nl/kcontrol/colors/index.docbook
 /usr/share/doc/HTML/nl/kcontrol/desktopthemedetails/index.cache.bz2
@@ -1233,6 +1236,24 @@ install -m644 %{_sourcedir}/kscreensaver.pam %{buildroot}/usr/share/pam.d/kscree
 /usr/share/doc/HTML/sr/kcontrol/icons/index.docbook
 /usr/share/doc/HTML/sr@latin/kcontrol/icons/index.cache.bz2
 /usr/share/doc/HTML/sr@latin/kcontrol/icons/index.docbook
+/usr/share/doc/HTML/sv/kcontrol/colors/index.cache.bz2
+/usr/share/doc/HTML/sv/kcontrol/colors/index.docbook
+/usr/share/doc/HTML/sv/kcontrol/desktopthemedetails/index.cache.bz2
+/usr/share/doc/HTML/sv/kcontrol/desktopthemedetails/index.docbook
+/usr/share/doc/HTML/sv/kcontrol/fontinst/index.cache.bz2
+/usr/share/doc/HTML/sv/kcontrol/fontinst/index.docbook
+/usr/share/doc/HTML/sv/kcontrol/fonts/index.cache.bz2
+/usr/share/doc/HTML/sv/kcontrol/fonts/index.docbook
+/usr/share/doc/HTML/sv/kcontrol/icons/index.cache.bz2
+/usr/share/doc/HTML/sv/kcontrol/icons/index.docbook
+/usr/share/doc/HTML/sv/kcontrol/kcmstyle/index.cache.bz2
+/usr/share/doc/HTML/sv/kcontrol/kcmstyle/index.docbook
+/usr/share/doc/HTML/sv/kcontrol/screenlocker/index.cache.bz2
+/usr/share/doc/HTML/sv/kcontrol/screenlocker/index.docbook
+/usr/share/doc/HTML/sv/kcontrol/translations/index.cache.bz2
+/usr/share/doc/HTML/sv/kcontrol/translations/index.docbook
+/usr/share/doc/HTML/sv/klipper/index.cache.bz2
+/usr/share/doc/HTML/sv/klipper/index.docbook
 /usr/share/doc/HTML/uk/kcontrol/colors/index.cache.bz2
 /usr/share/doc/HTML/uk/kcontrol/colors/index.docbook
 /usr/share/doc/HTML/uk/kcontrol/desktopthemedetails/index.cache.bz2
@@ -1261,21 +1282,21 @@ install -m644 %{_sourcedir}/kscreensaver.pam %{buildroot}/usr/share/pam.d/kscree
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libcolorcorrect.so.5
-/usr/lib64/libcolorcorrect.so.5.20.5
+/usr/lib64/libcolorcorrect.so.5.21.4
 /usr/lib64/libkdeinit5_kcminit.so
 /usr/lib64/libkdeinit5_kcminit_startup.so
 /usr/lib64/libkdeinit5_klipper.so
 /usr/lib64/libkfontinst.so.5
-/usr/lib64/libkfontinst.so.5.20.5
+/usr/lib64/libkfontinst.so.5.21.4
 /usr/lib64/libkfontinstui.so.5
-/usr/lib64/libkfontinstui.so.5.20.5
+/usr/lib64/libkfontinstui.so.5.21.4
 /usr/lib64/libkworkspace5.so.5
-/usr/lib64/libkworkspace5.so.5.20.5
+/usr/lib64/libkworkspace5.so.5.21.4
 /usr/lib64/libnotificationmanager.so.1
-/usr/lib64/libnotificationmanager.so.5.20.5
+/usr/lib64/libnotificationmanager.so.5.21.4
 /usr/lib64/libplasma-geolocation-interface.so.5
-/usr/lib64/libplasma-geolocation-interface.so.5.20.5
-/usr/lib64/libtaskmanager.so.5.20.5
+/usr/lib64/libplasma-geolocation-interface.so.5.21.4
+/usr/lib64/libtaskmanager.so.5.21.4
 /usr/lib64/libtaskmanager.so.6
 /usr/lib64/libweather_ion.so.7
 /usr/lib64/libweather_ion.so.7.0.0
@@ -1314,7 +1335,6 @@ install -m644 %{_sourcedir}/kscreensaver.pam %{buildroot}/usr/share/pam.d/kscree
 /usr/lib64/qt5/plugins/kf5/krunner/krunner_shell.so
 /usr/lib64/qt5/plugins/kf5/krunner/krunner_webshortcuts.so
 /usr/lib64/qt5/plugins/kf5/krunner/krunner_windowedwidgets.so
-/usr/lib64/qt5/plugins/kf5/krunner/krunner_windows.so
 /usr/lib64/qt5/plugins/kfontviewpart.so
 /usr/lib64/qt5/plugins/kio_fonts.so
 /usr/lib64/qt5/plugins/kpackage/packagestructure/plasma_packagestructure_layoutemplate.so
@@ -1392,6 +1412,7 @@ install -m644 %{_sourcedir}/kscreensaver.pam %{buildroot}/usr/share/pam.d/kscree
 /usr/lib64/qt5/qml/org/kde/plasma/wallpapers/image/libplasma_wallpaper_imageplugin.so
 /usr/lib64/qt5/qml/org/kde/plasma/wallpapers/image/qmldir
 /usr/lib64/qt5/qml/org/kde/plasma/workspace/components/BatteryIcon.qml
+/usr/lib64/qt5/qml/org/kde/plasma/workspace/components/KeyboardLayoutButton.qml
 /usr/lib64/qt5/qml/org/kde/plasma/workspace/components/qmldir
 /usr/lib64/qt5/qml/org/kde/plasma/workspace/keyboardlayout/libkeyboardlayoutplugin.so
 /usr/lib64/qt5/qml/org/kde/plasma/workspace/keyboardlayout/qmldir
@@ -1407,6 +1428,21 @@ install -m644 %{_sourcedir}/kscreensaver.pam %{buildroot}/usr/share/pam.d/kscree
 /usr/share/package-licenses/plasma-workspace/bd75d59f9d7d9731bfabdc48ecd19e704d218e38
 /usr/share/package-licenses/plasma-workspace/d53ea4b152ed3d9d8a96650bd70f5fbb9e9a3ef9
 
-%files locales -f kcm5_icons.lang -f kcm_colors.lang -f kcm_cursortheme.lang -f kcm_fonts.lang -f kcm_style.lang -f kfontinst.lang -f kio5_applications.lang -f klipper.lang -f krdb.lang -f ksmserver.lang -f freespacenotifier.lang -f kcm_desktoptheme.lang -f kcm_lookandfeel.lang -f kcm_translations.lang -f kcminit.lang -f kholidays_calendar_plugin.lang -f krunner.lang -f libkicker.lang -f libkworkspace.lang -f phonon_kde_plugin.lang -f plasma_applet_org.kde.plasma.analogclock.lang -f plasma_applet_org.kde.plasma.appmenu.lang -f plasma_applet_org.kde.plasma.battery.lang -f plasma_applet_org.kde.plasma.calendar.lang -f plasma_applet_org.kde.plasma.clipboard.lang -f plasma_applet_org.kde.plasma.devicenotifier.lang -f plasma_applet_org.kde.plasma.digitalclock.lang -f plasma_applet_org.kde.plasma.icon.lang -f plasma_applet_org.kde.plasma.lock_logout.lang -f plasma_applet_org.kde.plasma.mediacontroller.lang -f plasma_applet_org.kde.plasma.notifications.lang -f plasma_applet_org.kde.plasma.panelspacer.lang -f plasma_applet_org.kde.plasma.private.systemtray.lang -f plasma_containmentactions_applauncher.lang -f plasma_containmentactions_contextmenu.lang -f plasma_containmentactions_switchwindow.lang -f plasma_engine_applicationjobs.lang -f plasma_engine_devicenotifications.lang -f plasma_engine_keystate.lang -f plasma_engine_mpris2.lang -f plasma_engine_notifications.lang -f plasma_engine_powermanagement.lang -f plasma_engine_soliddevice.lang -f plasma_engine_time.lang -f plasma_engine_weather.lang -f plasma_lookandfeel_org.kde.lookandfeel.lang -f plasma_package_plasmashell.lang -f plasma_runner_activities.lang -f plasma_runner_baloosearch5.lang -f plasma_runner_bookmarksrunner.lang -f plasma_runner_calculatorrunner.lang -f plasma_runner_kill.lang -f plasma_runner_locations.lang -f plasma_runner_placesrunner.lang -f plasma_runner_powerdevil.lang -f plasma_runner_recentdocuments.lang -f plasma_runner_services.lang -f plasma_runner_sessions.lang -f plasma_runner_shell.lang -f plasma_runner_webshortcuts.lang -f plasma_runner_windowedwidgets.lang -f plasma_runner_windows.lang -f plasma_wallpaper_org.kde.color.lang -f plasma_wallpaper_org.kde.image.lang -f plasmashell.lang -f plasmashellprivateplugin.lang -f soliduiserver5.lang -f systemmonitor.lang -f kcm_feedback.lang -f libnotificationmanager.lang -f kio_desktop.lang -f plasma_applet_org.kde.plasma.systemmonitor.lang -f plasma_engine_dict.lang -f plasma_engine_hotplug.lang -f plasma_runner_appstream.lang
+%files services
+%defattr(-,root,root,-)
+/usr/lib/systemd/user/plasma-baloorunner.service
+/usr/lib/systemd/user/plasma-core.target
+/usr/lib/systemd/user/plasma-gmenudbusmenuproxy.service
+/usr/lib/systemd/user/plasma-kcminit-phase1.service
+/usr/lib/systemd/user/plasma-kcminit.service
+/usr/lib/systemd/user/plasma-krunner.service
+/usr/lib/systemd/user/plasma-ksmserver.service
+/usr/lib/systemd/user/plasma-ksplash-ready.service
+/usr/lib/systemd/user/plasma-plasmashell.service
+/usr/lib/systemd/user/plasma-restoresession.service
+/usr/lib/systemd/user/plasma-workspace@.target
+/usr/lib/systemd/user/plasma-xembedsniproxy.service
+
+%files locales -f kcm5_icons.lang -f kcm_colors.lang -f kcm_cursortheme.lang -f kcm_fonts.lang -f kcm_style.lang -f kfontinst.lang -f kio5_applications.lang -f klipper.lang -f krdb.lang -f ksmserver.lang -f freespacenotifier.lang -f kcm_desktoptheme.lang -f kcm_lookandfeel.lang -f kcm_translations.lang -f kcminit.lang -f kholidays_calendar_plugin.lang -f krunner.lang -f libkicker.lang -f libkworkspace.lang -f phonon_kde_plugin.lang -f plasma_applet_org.kde.plasma.analogclock.lang -f plasma_applet_org.kde.plasma.appmenu.lang -f plasma_applet_org.kde.plasma.battery.lang -f plasma_applet_org.kde.plasma.calendar.lang -f plasma_applet_org.kde.plasma.clipboard.lang -f plasma_applet_org.kde.plasma.devicenotifier.lang -f plasma_applet_org.kde.plasma.digitalclock.lang -f plasma_applet_org.kde.plasma.icon.lang -f plasma_applet_org.kde.plasma.lock_logout.lang -f plasma_applet_org.kde.plasma.mediacontroller.lang -f plasma_applet_org.kde.plasma.notifications.lang -f plasma_applet_org.kde.plasma.panelspacer.lang -f plasma_applet_org.kde.plasma.private.systemtray.lang -f plasma_containmentactions_applauncher.lang -f plasma_containmentactions_contextmenu.lang -f plasma_containmentactions_switchwindow.lang -f plasma_engine_applicationjobs.lang -f plasma_engine_devicenotifications.lang -f plasma_engine_keystate.lang -f plasma_engine_mpris2.lang -f plasma_engine_notifications.lang -f plasma_engine_powermanagement.lang -f plasma_engine_soliddevice.lang -f plasma_engine_time.lang -f plasma_engine_weather.lang -f plasma_lookandfeel_org.kde.lookandfeel.lang -f plasma_package_plasmashell.lang -f plasma_runner_activities.lang -f plasma_runner_baloosearch5.lang -f plasma_runner_bookmarksrunner.lang -f plasma_runner_calculatorrunner.lang -f plasma_runner_kill.lang -f plasma_runner_locations.lang -f plasma_runner_placesrunner.lang -f plasma_runner_powerdevil.lang -f plasma_runner_recentdocuments.lang -f plasma_runner_services.lang -f plasma_runner_sessions.lang -f plasma_runner_shell.lang -f plasma_runner_webshortcuts.lang -f plasma_runner_windowedwidgets.lang -f plasma_wallpaper_org.kde.color.lang -f plasma_wallpaper_org.kde.image.lang -f plasmashell.lang -f plasmashellprivateplugin.lang -f soliduiserver5.lang -f systemmonitor.lang -f kcm_feedback.lang -f libnotificationmanager.lang -f kio_desktop.lang -f plasma_applet_org.kde.plasma.systemmonitor.lang -f plasma_engine_dict.lang -f plasma_engine_hotplug.lang -f plasma_runner_appstream.lang
 %defattr(-,root,root,-)
 
