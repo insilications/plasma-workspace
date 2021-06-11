@@ -48,6 +48,7 @@ breeze-icons
 plasma-workspace-wallpapers
 appstream-dev
 appstream-extras
-ksysguard-dev
 ksysguard
 libksysguard-dev
+layer-shell-qt-dev
+qtbase-staticdev
