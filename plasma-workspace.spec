@@ -5,17 +5,17 @@
 # Source0 file verified with key 0xEC94D18F7F05997E (jr@jriddell.org)
 #
 Name     : plasma-workspace
-Version  : 5.22.1
-Release  : 67
-URL      : https://download.kde.org/stable/plasma/5.22.1/plasma-workspace-5.22.1.tar.xz
-Source0  : https://download.kde.org/stable/plasma/5.22.1/plasma-workspace-5.22.1.tar.xz
-Source1  : https://download.kde.org/stable/plasma/5.22.1/plasma-workspace-5.22.1.tar.xz.sig
+Version  : 5.22.5
+Release  : 68
+URL      : https://download.kde.org/stable/plasma/5.22.5/plasma-workspace-5.22.5.tar.xz
+Source0  : https://download.kde.org/stable/plasma/5.22.5/plasma-workspace-5.22.5.tar.xz
+Source1  : https://download.kde.org/stable/plasma/5.22.5/plasma-workspace-5.22.5.tar.xz.sig
 Source2  : kde.pam
 Source3  : kde-np.pam
 Source4  : kscreensaver.pam
 Summary  : No detailed summary available
 Group    : Development/Tools
-License  : BSD-3-Clause GFDL-1.2 GPL-2.0 ICU LGPL-2.1 MIT
+License  : BSD-3-Clause CC0-1.0 GFDL-1.2 GPL-2.0 ICU LGPL-2.1 MIT
 Requires: plasma-workspace-bin = %{version}-%{release}
 Requires: plasma-workspace-data = %{version}-%{release}
 Requires: plasma-workspace-lib = %{version}-%{release}
@@ -120,9 +120,11 @@ BuildRequires : xcb-util-xrm-dev
 BuildRequires : zlib-dev
 
 %description
-This is a small KDED module that monitors free disk space on the home dir
-partition and shows a warning dialog when it runs too low,
-with a configurable limit and the possibility to postpone.
+KRDB V0.2
+CHANGES V0.2
+- use QFontInfo
+- general purpose files e.g. AAAMotif.ad thanks to Gerd
+Knorr <kraxel@goldbach.isdn.cs.tu-berlin.de>
 
 %package bin
 Summary: bin components for the plasma-workspace package.
@@ -199,40 +201,42 @@ services components for the plasma-workspace package.
 
 
 %prep
-%setup -q -n plasma-workspace-5.22.1
-cd %{_builddir}/plasma-workspace-5.22.1
+%setup -q -n plasma-workspace-5.22.5
+cd %{_builddir}/plasma-workspace-5.22.5
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1623809790
+export SOURCE_DATE_EPOCH=1630972087
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
-export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
+export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=auto "
+export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
+export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
+export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=auto "
 %cmake .. -DXDG_CONFIG_DIRS=/usr/share/xdg
 make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1623809790
+export SOURCE_DATE_EPOCH=1630972087
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/plasma-workspace
-cp %{_builddir}/plasma-workspace-5.22.1/COPYING %{buildroot}/usr/share/package-licenses/plasma-workspace/7c203dee3a03037da436df03c4b25b659c073976
-cp %{_builddir}/plasma-workspace-5.22.1/COPYING.DOC %{buildroot}/usr/share/package-licenses/plasma-workspace/bd75d59f9d7d9731bfabdc48ecd19e704d218e38
-cp %{_builddir}/plasma-workspace-5.22.1/COPYING.LIB %{buildroot}/usr/share/package-licenses/plasma-workspace/9a1929f4700d2407c70b507b3b2aaf6226a9543c
-cp %{_builddir}/plasma-workspace-5.22.1/freespacenotifier/COPYING %{buildroot}/usr/share/package-licenses/plasma-workspace/7c203dee3a03037da436df03c4b25b659c073976
-cp %{_builddir}/plasma-workspace-5.22.1/kcms/kfontinst/viewpart/COPYING.UNICODE %{buildroot}/usr/share/package-licenses/plasma-workspace/ae855f68ab20f57b2cc7e9b03f54a87563424eb9
-cp %{_builddir}/plasma-workspace-5.22.1/ksmserver/Copyright.txt %{buildroot}/usr/share/package-licenses/plasma-workspace/d53ea4b152ed3d9d8a96650bd70f5fbb9e9a3ef9
-cp %{_builddir}/plasma-workspace-5.22.1/ksmserver/LICENSE %{buildroot}/usr/share/package-licenses/plasma-workspace/67218f86a21c5afe177def300337c7ff8ccf40f9
+cp %{_builddir}/plasma-workspace-5.22.5/COPYING %{buildroot}/usr/share/package-licenses/plasma-workspace/7c203dee3a03037da436df03c4b25b659c073976
+cp %{_builddir}/plasma-workspace-5.22.5/COPYING.DOC %{buildroot}/usr/share/package-licenses/plasma-workspace/bd75d59f9d7d9731bfabdc48ecd19e704d218e38
+cp %{_builddir}/plasma-workspace-5.22.5/COPYING.LIB %{buildroot}/usr/share/package-licenses/plasma-workspace/9a1929f4700d2407c70b507b3b2aaf6226a9543c
+cp %{_builddir}/plasma-workspace-5.22.5/freespacenotifier/COPYING %{buildroot}/usr/share/package-licenses/plasma-workspace/7c203dee3a03037da436df03c4b25b659c073976
+cp %{_builddir}/plasma-workspace-5.22.5/kcms/kfontinst/viewpart/COPYING.UNICODE %{buildroot}/usr/share/package-licenses/plasma-workspace/ae855f68ab20f57b2cc7e9b03f54a87563424eb9
+cp %{_builddir}/plasma-workspace-5.22.5/ksmserver/Copyright.txt %{buildroot}/usr/share/package-licenses/plasma-workspace/d53ea4b152ed3d9d8a96650bd70f5fbb9e9a3ef9
+cp %{_builddir}/plasma-workspace-5.22.5/ksmserver/LICENSE %{buildroot}/usr/share/package-licenses/plasma-workspace/67218f86a21c5afe177def300337c7ff8ccf40f9
+cp %{_builddir}/plasma-workspace-5.22.5/runners/bookmarks/autotests/firefox/firefox-config-home/atnsd8ae.testmekde/favicons.sqlite.license %{buildroot}/usr/share/package-licenses/plasma-workspace/a028dffb75c61fce4214fd36610c85eabfc43a3f
+cp %{_builddir}/plasma-workspace-5.22.5/runners/bookmarks/autotests/firefox/firefox-config-home/atnsd8ae.testmekde/places.sqlite.license %{buildroot}/usr/share/package-licenses/plasma-workspace/a028dffb75c61fce4214fd36610c85eabfc43a3f
 pushd clr-build
 %make_install
 popd
@@ -572,28 +576,6 @@ install -m644 %{_sourcedir}/kscreensaver.pam %{buildroot}/usr/share/pam.d/kscree
 /usr/share/kservices5/kcm_style.desktop
 /usr/share/kservices5/kcm_translations.desktop
 /usr/share/kservices5/kfontviewpart.desktop
-/usr/share/kservices5/plasma-applet-org.kde.plasma.activitybar.desktop
-/usr/share/kservices5/plasma-applet-org.kde.plasma.analogclock.desktop
-/usr/share/kservices5/plasma-applet-org.kde.plasma.appmenu.desktop
-/usr/share/kservices5/plasma-applet-org.kde.plasma.battery.desktop
-/usr/share/kservices5/plasma-applet-org.kde.plasma.calendar.desktop
-/usr/share/kservices5/plasma-applet-org.kde.plasma.clipboard.desktop
-/usr/share/kservices5/plasma-applet-org.kde.plasma.devicenotifier.desktop
-/usr/share/kservices5/plasma-applet-org.kde.plasma.digitalclock.desktop
-/usr/share/kservices5/plasma-applet-org.kde.plasma.icon.desktop
-/usr/share/kservices5/plasma-applet-org.kde.plasma.lock_logout.desktop
-/usr/share/kservices5/plasma-applet-org.kde.plasma.mediacontroller.desktop
-/usr/share/kservices5/plasma-applet-org.kde.plasma.notifications.desktop
-/usr/share/kservices5/plasma-applet-org.kde.plasma.panelspacer.desktop
-/usr/share/kservices5/plasma-applet-org.kde.plasma.private.systemtray.desktop
-/usr/share/kservices5/plasma-applet-org.kde.plasma.systemmonitor.cpu.desktop
-/usr/share/kservices5/plasma-applet-org.kde.plasma.systemmonitor.cpucore.desktop
-/usr/share/kservices5/plasma-applet-org.kde.plasma.systemmonitor.desktop
-/usr/share/kservices5/plasma-applet-org.kde.plasma.systemmonitor.diskactivity.desktop
-/usr/share/kservices5/plasma-applet-org.kde.plasma.systemmonitor.diskusage.desktop
-/usr/share/kservices5/plasma-applet-org.kde.plasma.systemmonitor.memory.desktop
-/usr/share/kservices5/plasma-applet-org.kde.plasma.systemmonitor.net.desktop
-/usr/share/kservices5/plasma-applet-org.kde.plasma.systemtray.desktop
 /usr/share/kservices5/plasma-containmentactions-switchactivity.desktop
 /usr/share/kservices5/plasma-dataengine-activities.desktop
 /usr/share/kservices5/plasma-dataengine-applicationjobs.desktop
@@ -619,12 +601,8 @@ install -m644 %{_sourcedir}/kscreensaver.pam %{buildroot}/usr/share/pam.d/kscree
 /usr/share/kservices5/plasma-dataengine-time.desktop
 /usr/share/kservices5/plasma-dataengine-weather.desktop
 /usr/share/kservices5/plasma-geolocation-ip.desktop
-/usr/share/kservices5/plasma-lookandfeel-org.kde.breeze.desktop.desktop
 /usr/share/kservices5/plasma-runner-kill_config.desktop
 /usr/share/kservices5/plasma-runner-webshortcuts_config.desktop
-/usr/share/kservices5/plasma-wallpaper-org.kde.color.desktop
-/usr/share/kservices5/plasma-wallpaper-org.kde.image.desktop
-/usr/share/kservices5/plasma-wallpaper-org.kde.slideshow.desktop
 /usr/share/kservices5/programs.protocol
 /usr/share/kservicetypes5/phononbackend.desktop
 /usr/share/kservicetypes5/plasma-geolocationprovider.desktop
@@ -1304,6 +1282,8 @@ install -m644 %{_sourcedir}/kscreensaver.pam %{buildroot}/usr/share/pam.d/kscree
 /usr/share/doc/HTML/ru/kcontrol/icons/use-of-icons.png
 /usr/share/doc/HTML/ru/kcontrol/kcmstyle/index.cache.bz2
 /usr/share/doc/HTML/ru/kcontrol/kcmstyle/index.docbook
+/usr/share/doc/HTML/ru/kcontrol/notifications/index.cache.bz2
+/usr/share/doc/HTML/ru/kcontrol/notifications/index.docbook
 /usr/share/doc/HTML/ru/kcontrol/screenlocker/index.cache.bz2
 /usr/share/doc/HTML/ru/kcontrol/screenlocker/index.docbook
 /usr/share/doc/HTML/ru/kcontrol/translations/index.cache.bz2
@@ -1374,20 +1354,20 @@ install -m644 %{_sourcedir}/kscreensaver.pam %{buildroot}/usr/share/pam.d/kscree
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libcolorcorrect.so.5
-/usr/lib64/libcolorcorrect.so.5.22.1
+/usr/lib64/libcolorcorrect.so.5.22.5
 /usr/lib64/libkdeinit5_kcminit.so
 /usr/lib64/libkdeinit5_kcminit_startup.so
 /usr/lib64/libkfontinst.so.5
-/usr/lib64/libkfontinst.so.5.22.1
+/usr/lib64/libkfontinst.so.5.22.5
 /usr/lib64/libkfontinstui.so.5
-/usr/lib64/libkfontinstui.so.5.22.1
+/usr/lib64/libkfontinstui.so.5.22.5
 /usr/lib64/libkworkspace5.so.5
-/usr/lib64/libkworkspace5.so.5.22.1
+/usr/lib64/libkworkspace5.so.5.22.5
 /usr/lib64/libnotificationmanager.so.1
-/usr/lib64/libnotificationmanager.so.5.22.1
+/usr/lib64/libnotificationmanager.so.5.22.5
 /usr/lib64/libplasma-geolocation-interface.so.5
-/usr/lib64/libplasma-geolocation-interface.so.5.22.1
-/usr/lib64/libtaskmanager.so.5.22.1
+/usr/lib64/libplasma-geolocation-interface.so.5.22.5
+/usr/lib64/libtaskmanager.so.5.22.5
 /usr/lib64/libtaskmanager.so.6
 /usr/lib64/libweather_ion.so.7
 /usr/lib64/libweather_ion.so.7.0.0
@@ -1518,6 +1498,7 @@ install -m644 %{_sourcedir}/kscreensaver.pam %{buildroot}/usr/share/pam.d/kscree
 /usr/share/package-licenses/plasma-workspace/67218f86a21c5afe177def300337c7ff8ccf40f9
 /usr/share/package-licenses/plasma-workspace/7c203dee3a03037da436df03c4b25b659c073976
 /usr/share/package-licenses/plasma-workspace/9a1929f4700d2407c70b507b3b2aaf6226a9543c
+/usr/share/package-licenses/plasma-workspace/a028dffb75c61fce4214fd36610c85eabfc43a3f
 /usr/share/package-licenses/plasma-workspace/ae855f68ab20f57b2cc7e9b03f54a87563424eb9
 /usr/share/package-licenses/plasma-workspace/bd75d59f9d7d9731bfabdc48ecd19e704d218e38
 /usr/share/package-licenses/plasma-workspace/d53ea4b152ed3d9d8a96650bd70f5fbb9e9a3ef9
