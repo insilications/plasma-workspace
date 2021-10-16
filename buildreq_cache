@@ -1,4 +1,4 @@
-5.22.5
+5.23.0
 gmp-dev
 kactivities-dev
 kactivities-stats-dev
@@ -9,8 +9,10 @@ kidletime-dev
 knotifyconfig-dev
 kpeople-dev
 krunner-dev
+ktexteditor-dev
 kwayland-dev
 libqalculate-dev
 mpfr-dev
+pkgconfig(iso-codes)
 prison-dev
 syntax-highlighting-dev
