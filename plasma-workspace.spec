@@ -4,7 +4,7 @@
 #
 Name     : plasma-workspace
 Version  : 5.23.0
-Release  : 69
+Release  : 70
 URL      : https://download.kde.org/stable/plasma/5.23.0/plasma-workspace-5.23.0.tar.xz
 Source0  : https://download.kde.org/stable/plasma/5.23.0/plasma-workspace-5.23.0.tar.xz
 Source1  : kde.pam
