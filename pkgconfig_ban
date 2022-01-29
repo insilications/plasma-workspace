@@ -4,3 +4,4 @@ libqalculate
 cln
 iso-codes>=${IsoCodes_MIN_VERSION}
 libqalculate>=${QALCULATE_MIN_VERSION}
+libgps

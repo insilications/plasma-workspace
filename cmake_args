@@ -1,1 +1,1 @@
--DXDG_CONFIG_DIRS=/usr/share/xdg
+-DKDE_INSTALL_CONFDIR=/usr/share/xdg

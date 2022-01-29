@@ -1,2 +1,8 @@
 # This file contains additional pkgconfig build requirements that did
 # not get picked up automatically. One name per line, no whitespace.
+iso-codes
+libdrm
+libpipewire-0.3
+wayland-client
+xcb
+xkbcommon
